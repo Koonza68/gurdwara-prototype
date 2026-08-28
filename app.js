@@ -45,7 +45,7 @@ const PLACE_INFO = {
 
 function shuffle(arr){ return [...arr].sort(()=>Math.random()-.5); }
 function escapeHtml(s=''){ return String(s).replace(/[&<>'"]/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;' }[c])); }
-function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V1.0</div></div>${content}`; }
+function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V1.0.1</div></div>${content}`; }
 
 
 function saveJourneyState(){
@@ -54,12 +54,12 @@ function saveJourneyState(){
 }
 function toggleVisited(id){
   if(visited.has(id)){ visited.delete(id); }
-  else { visited.add(id); wantToVisit.delete(id); }
+  else { visited.add(id); }
   saveJourneyState();
 }
 function toggleWantToVisit(id){
   if(wantToVisit.has(id)){ wantToVisit.delete(id); }
-  else { wantToVisit.add(id); visited.delete(id); }
+  else { wantToVisit.add(id); }
   saveJourneyState();
 }
 function distanceKm(a,b){
@@ -75,14 +75,18 @@ function nearbyGurdwaras(item,limit=4){
     .sort((a,b)=>a.km-b.km).slice(0,limit);
 }
 function journeyStatus(item){
-  if(visited.has(item.id)) return 'Visited';
-  if(wantToVisit.has(item.id)) return 'Want to Visit';
+  const wasVisited=visited.has(item.id);
+  const wantsReturn=wantToVisit.has(item.id);
+  if(wasVisited && wantsReturn) return 'Visited · Want to Visit Again';
+  if(wasVisited) return 'Visited';
+  if(wantsReturn) return 'Want to Visit';
   return 'Not marked';
 }
 function renderJourneyButtons(item){
+  const both=visited.has(item.id) && wantToVisit.has(item.id);
   return `<div class="journey-actions">
     <button class="journey-btn ${visited.has(item.id)?'active':''}" id="visitedBtn">🙏 ${visited.has(item.id)?'Visited ✓':'Mark Visited'}</button>
-    <button class="journey-btn ${wantToVisit.has(item.id)?'active':''}" id="wantBtn">🧭 ${wantToVisit.has(item.id)?'Want to Visit ✓':'Want to Visit'}</button>
+    <button class="journey-btn ${wantToVisit.has(item.id)?'active':''}" id="wantBtn">🧭 ${wantToVisit.has(item.id)?(both?'Visit Again ✓':'Want to Visit ✓'):(visited.has(item.id)?'Visit Again':'Want to Visit')}</button>
   </div>`;
 }
 function bindJourneyButtons(item, rerender){
@@ -260,7 +264,7 @@ function renderHome(){
     </div>
     <button class="primary" id="start">Start Photo Challenge</button>
     <button class="journey-home-btn" id="myJourney">🧭 My Journey <span>${wantToVisit.size} Want to Visit</span></button>
-    <p class="small-note">Prototype V1.0 · Quiz, heritage profiles and personal pilgrimage planning.</p>
+    <p class="small-note">Prototype V1.0.1 · Quiz, heritage profiles and personal pilgrimage planning.</p>
   </section>`);
   document.getElementById('start').onclick=startGame;
   document.getElementById('myJourney').onclick=renderMyJourney;
@@ -452,7 +456,7 @@ function renderPilgrimagePlan(plan){
             <div class="stop-body">
               <h3>${escapeHtml(r.item.name)}</h3>
               <p>${escapeHtml(r.item.city)}, ${escapeHtml(r.item.region)}, ${escapeHtml(r.item.country)}</p>
-              <div class="stop-meta">Approx. ${Math.round(r.distanceFromPrevious)} km from previous stop · ${visited.has(r.item.id)?'🙏 Visited':wantToVisit.has(r.item.id)?'🧭 Want to Visit':'🏛️ Discovered'}</div>
+              <div class="stop-meta">Approx. ${Math.round(r.distanceFromPrevious)} km from previous stop · ${visited.has(r.item.id)&&wantToVisit.has(r.item.id)?'🙏 Visited · 🧭 Visiting Again':visited.has(r.item.id)?'🙏 Visited':wantToVisit.has(r.item.id)?'🧭 Want to Visit':'🏛️ Discovered'}</div>
               <p class="stop-significance">${escapeHtml(r.item.significance)}</p>
               <button class="mini-profile-btn no-print" data-plan-profile="${r.item.id}">Open Gurdwara Profile</button>
             </div>

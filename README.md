@@ -1,26 +1,37 @@
-# Gurdwara Discovery — Prototype V0.9.1
+# Gurdwara Discovery — Prototype V0.1
 
-## My Journey
+A mobile-first static web prototype for an educational Sikh gurdwara identification game.
 
-V0.9 introduces a personal heritage journey dashboard using the Visited, Want to Visit and Discovered data already stored in the browser.
+## Included
+- 20 prototype gurdwara records
+- 10-round randomized photo challenge
+- 4-answer multiple choice
+- score + streak bonus
+- local "discovered" collection saved in the browser
+- post-answer educational card with:
+  - historical period / established
+  - significance to the Sikh faith
+  - the story
+  - stories & traditions
+  - did you know?
+  - associated Gurus
+  - Sikh values tags
+- Wikipedia image loading when available
+- source link on each result card
 
-### New
-- **My Journey** button on the home screen.
-- Personal totals for Discovered, Visited, Want to Visit and Still to Explore.
-- **Places I Want to Visit** pilgrimage-planning section.
-- Personal map of Want to Visit Gurdwaras.
-- Cards linking back to each Gurdwara profile.
-- Separate Visited and Discovered collections.
-- **Build My Pilgrimage** preview that turns the saved Want to Visit list into itinerary stops.
-- Preserves the quiz, linked Guru/place history, maps and journey controls.
+## Run locally
+Because the prototype fetches images from Wikipedia, run it through a small local web server instead of double-clicking index.html.
 
-### Planned for V1.0
-Starting city, dates, itinerary ordering, travel distances, nearby Gurdwaras, accommodation/travel information, printable/PDF pilgrimage plan, family sharing and a future travel-professional handoff.
+### Windows / Mac / Linux if Python is installed
+Open a terminal in this folder and run:
 
-This version continues to use browser localStorage. User accounts/cloud syncing will be considered later.
+    python -m http.server 8080
 
+Then visit:
 
-## V0.9.1 gameplay adjustment
-The Gurdwara name now remains visible after an incorrect photo selection.
-Clues are added beneath the name on attempts 2 and 3 instead of replacing it.
-Wrong photographs remain eliminated, and scoring remains 100 / 75 / 50.
+    http://localhost:8080
+
+Python is **not** part of the app; this command is only a convenient local web server. Netlify, GitHub Pages, Vercel, or any static host can serve the files directly.
+
+## Important content note
+The historical text is prototype content assembled for UI/gameplay testing. Before a public release, each record should be reviewed against authoritative Sikh historical sources, spelling conventions, dates, image licensing, and any areas where documented history differs from oral tradition.

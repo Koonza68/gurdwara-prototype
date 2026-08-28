@@ -1,37 +1,21 @@
-# Gurdwara Discovery — Prototype V0.1
+# Gurdwara Discovery — Prototype V1.0
 
-A mobile-first static web prototype for an educational Sikh gurdwara identification game.
+## Pilgrimage Planner
 
-## Included
-- 20 prototype gurdwara records
-- 10-round randomized photo challenge
-- 4-answer multiple choice
-- score + streak bonus
-- local "discovered" collection saved in the browser
-- post-answer educational card with:
-  - historical period / established
-  - significance to the Sikh faith
-  - the story
-  - stories & traditions
-  - did you know?
-  - associated Gurus
-  - Sikh values tags
-- Wikipedia image loading when available
-- source link on each result card
+V1.0 turns the My Journey wish list into a usable pilgrimage-planning workflow.
 
-## Run locally
-Because the prototype fetches images from Wikipedia, run it through a small local web server instead of double-clicking index.html.
+### New
+- Choose a starting city from a set of common travel anchors.
+- Add optional start/end dates.
+- Select which Want to Visit Gurdwaras to include.
+- Automatically orders selected Gurdwaras using a nearest-neighbour first-pass route.
+- Calculates approximate straight-line distances between stops and a total approximate journey distance.
+- Numbered pilgrimage map.
+- Detailed itinerary cards with image, location, travel distance, journey status and Sikh significance.
+- **Print / Save PDF** using the browser's print dialog.
+- **Copy Itinerary** for sharing by email/message.
+- Print-specific styling for a clean itinerary.
+- Links from itinerary stops back to full Gurdwara profiles.
 
-### Windows / Mac / Linux if Python is installed
-Open a terminal in this folder and run:
-
-    python -m http.server 8080
-
-Then visit:
-
-    http://localhost:8080
-
-Python is **not** part of the app; this command is only a convenient local web server. Netlify, GitHub Pages, Vercel, or any static host can serve the files directly.
-
-## Important content note
-The historical text is prototype content assembled for UI/gameplay testing. Before a public release, each record should be reviewed against authoritative Sikh historical sources, spelling conventions, dates, image licensing, and any areas where documented history differs from oral tradition.
+### Important
+Distances are approximate straight-line calculations, not driving routes. Before travel, users must verify transport, borders/visas, accommodation, sarai, accessibility and local visitor information. A future version can integrate real road/transit routing and travel partners.

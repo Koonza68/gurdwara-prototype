@@ -1,4 +1,4 @@
-# Gurdwara Discovery — Prototype V1.3.2
+# Gurdwara Discovery — Prototype V1.3.4
 
 ## Pilgrimage Planner
 
@@ -145,3 +145,32 @@ The game now validates Gurdwara photos before creating a quiz.
 - This protects the game even while the 50-entry photo catalogue is still being visually curated.
 
 This is intentionally a reliability layer in addition to the ongoing manual photo-quality review.
+
+
+## V1.3.3 — Global Location UX
+Quiz questions now display the Gurdwara's city, region/state/province and country directly beneath its name. Since location is now part of the starting clue, wrong-answer hints have been changed to Sikh Connection / Significance, Historical Connection / Did You Know, and Story clues instead of repeating the location.
+
+
+## V1.3.4 — Self-Updating Deployment Fix
+
+This release fixes the remaining GitHub Pages stale-index problem.
+
+Previous releases versioned `app.js`, `data.js` and `styles.css`, but a cached
+`index.html` could still point to old asset URLs.
+
+V1.3.4 now:
+
+- Fetches `build-info.json` with `cache: no-store` and a timestamp.
+- Detects when GitHub has deployed a newer build.
+- Automatically reloads the **page itself** with the new build ID in the URL.
+- Checks again every 60 seconds while the site remains open.
+- Keeps unique version/build parameters on all app assets.
+- Still works if the update check fails or the user is offline.
+
+Expected workflow:
+1. Upload/commit files to GitHub.
+2. Wait until GitHub Pages shows the deployment as green/active.
+3. Open or normally refresh the site once.
+4. If the cached page is old, it should detect the new build and reload itself automatically.
+
+Current build: `2026-08-27-index-refresh`.

@@ -1,6 +1,6 @@
 
-const APP_BUILD = "2026-08-27-photos";
-const APP_VERSION = "1.3.2";
+const APP_BUILD = "2026-08-27-index-refresh";
+const APP_VERSION = "1.3.4";
 
 // Expose current build for easy troubleshooting.
 window.GURDWARA_BUILD = { version: APP_VERSION, build: APP_BUILD };
@@ -83,7 +83,7 @@ const PLACE_INFO = {
 
 function shuffle(arr){ return [...arr].sort(()=>Math.random()-.5); }
 function escapeHtml(s=''){ return String(s).replace(/[&<>'"]/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;' }[c])); }
-function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V1.3.2</div></div>${content}`; }
+function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V1.3.4</div></div>${content}`; }
 
 
 function saveJourneyState(){
@@ -303,7 +303,7 @@ function renderHome(){
     <button class="primary" id="start">Start Photo Challenge</button>
     <button class="journey-home-btn explore-home-btn" id="exploreGurdwaras">🏛️ Explore Gurdwaras <span>Browse all ${data.length}</span></button>
     <button class="journey-home-btn" id="myJourney">🧭 My Journey <span>${wantToVisit.size} Want to Visit</span></button>
-    <p class="small-note">Prototype V1.3.2 · Quiz, heritage profiles and personal pilgrimage planning.</p>
+    <p class="small-note">Prototype V1.3.4 · Quiz, heritage profiles and personal pilgrimage planning.</p>
   </section>`);
   document.getElementById('start').onclick=startGame;
   document.getElementById('exploreGurdwaras').onclick=()=>renderExplore();
@@ -970,16 +970,19 @@ function beginRound(){ state.attempt=1; state.hints=[]; state.disabledIds=new Se
 function buildHint(item,number){
   if(number===1 && item.gurus?.length) return {type:'ੴ Sikh Connection',text:`This site is closely associated with ${item.gurus.join(', ')}.`};
   if(number===1) return {type:'⭐ Significance',text:item.significance};
-  return {type:'📍 Location',text:`This Gurdwara is located in ${item.city}, ${item.region}, ${item.country}.`};
+  if(number===2 && item.historicalPeriod) return {type:'🗓 Historical Connection',text:item.historicalPeriod};
+  if(number===2 && item.didYouKnow) return {type:'💡 Did You Know?',text:item.didYouKnow};
+  return {type:'📖 Story Clue',text:item.story || item.significance};
 }
 
 function renderQuestion(){
   const round=state.rounds[state.roundIndex];
   const pct=(state.roundIndex/TOTAL_ROUNDS)*100;
   const clue=state.hints[state.hints.length-1];
+  const locationLine=[round.correct.city, round.correct.region, round.correct.country].filter(Boolean).join(', ');
   const prompt=state.attempt===1
-    ? `<div class="name-prompt"><span>Find this Gurdwara</span><h2>${escapeHtml(round.correct.name)}</h2></div>`
-    : `<div class="name-prompt clue-prompt"><span>Find this Gurdwara</span><h2>${escapeHtml(round.correct.name)}</h2><div class="clue-divider"></div><h3>${escapeHtml(clue.type)}</h3><p>${escapeHtml(clue.text)}</p></div>`;
+    ? `<div class="name-prompt"><span>Find this Gurdwara</span><h2>${escapeHtml(round.correct.name)}</h2><p class="quiz-location">📍 ${escapeHtml(locationLine)}</p></div>`
+    : `<div class="name-prompt clue-prompt"><span>Find this Gurdwara</span><h2>${escapeHtml(round.correct.name)}</h2><p class="quiz-location">📍 ${escapeHtml(locationLine)}</p><div class="clue-divider"></div><h3>${escapeHtml(clue.type)}</h3><p>${escapeHtml(clue.text)}</p></div>`;
 
   layout(`<section class="card">
     <div class="stats">

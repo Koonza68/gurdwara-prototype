@@ -333,3 +333,12 @@ p { line-height:1.55; }
 .photo-choice.runtime-photo-fail{opacity:.35;filter:grayscale(1);cursor:not-allowed}
 .photo-choice.runtime-photo-fail::after{content:"Photo unavailable";position:absolute;inset:auto 8px 8px 8px;background:rgba(255,255,255,.9);padding:5px;border-radius:8px;font-size:.7rem;color:var(--muted);font-weight:700}
 .primary:disabled{opacity:.6;cursor:wait}
+
+.quiz-location{
+  margin:.45rem 0 0;
+  font-size:1rem;
+  font-weight:650;
+  color:var(--muted);
+  letter-spacing:.01em;
+}
+.name-prompt .quiz-location{ text-transform:none; }

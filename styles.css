@@ -294,3 +294,21 @@ p { line-height:1.55; }
 .gateway-trip-line>span{font-size:.65rem;font-weight:900;letter-spacing:.07em;color:var(--accent-2)}
 .gateway-trip-line>b{text-align:center}.gateway-recommendation{font-size:.78rem;margin-top:9px!important}
 @media(max-width:700px){.gateway-grid{grid-template-columns:1fr}.gateway-trip-line{grid-template-columns:60px 1fr 16px 1fr;font-size:.78rem}}
+
+.trip-type-box{margin-top:14px;border-top:1px solid var(--line);padding-top:14px}
+.trip-type-box>label>span{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;font-weight:800;color:var(--muted);margin-bottom:5px}
+.trip-type-box select{width:100%;border:1px solid var(--line);border-radius:11px;padding:10px;background:#fff;color:var(--ink);font:inherit}
+.multi-city-wrap{margin-top:12px;padding:12px;border:1px solid var(--line);border-radius:14px;background:#f8f4ea}
+.multi-city-wrap[hidden]{display:none}
+.multi-city-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:9px}
+.multi-city-head strong,.multi-city-head small{display:block}.multi-city-head small{color:var(--muted);margin-top:2px}
+.mini-add-leg{padding:7px 10px;flex:0 0 auto}
+.multi-city-leg{display:grid;grid-template-columns:30px 1fr auto;gap:8px;align-items:center;margin-top:8px}
+.multi-city-leg .multi-city-custom{grid-column:2/3}
+.leg-number{display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:#2e6658;color:#fff;font-size:.72rem;font-weight:900}
+.remove-leg{border:1px solid var(--line);background:#fff;border-radius:9px;width:32px;height:32px;font-size:1.2rem;cursor:pointer;color:var(--muted)}
+.multi-city-summary{margin:10px 0;padding:10px;border:1px solid var(--line);border-radius:11px;background:#fff}
+.multi-city-summary>span{display:block;font-size:.65rem;font-weight:900;letter-spacing:.08em;color:var(--accent-2);margin-bottom:7px}
+.multi-city-summary>div{display:flex;gap:8px;align-items:center;margin-top:5px;font-size:.82rem}
+.multi-city-summary b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#2e6658;color:#fff;font-size:.68rem}
+@media(max-width:600px){.multi-city-head{align-items:flex-start;flex-direction:column}.mini-add-leg{width:100%}.multi-city-leg{grid-template-columns:28px 1fr auto}}

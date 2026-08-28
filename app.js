@@ -45,7 +45,7 @@ const PLACE_INFO = {
 
 function shuffle(arr){ return [...arr].sort(()=>Math.random()-.5); }
 function escapeHtml(s=''){ return String(s).replace(/[&<>'"]/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;' }[c])); }
-function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V1.0.6</div></div>${content}`; }
+function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V1.0.7</div></div>${content}`; }
 
 
 function saveJourneyState(){
@@ -264,7 +264,7 @@ function renderHome(){
     </div>
     <button class="primary" id="start">Start Photo Challenge</button>
     <button class="journey-home-btn" id="myJourney">🧭 My Journey <span>${wantToVisit.size} Want to Visit</span></button>
-    <p class="small-note">Prototype V1.0.6 · Quiz, heritage profiles and personal pilgrimage planning.</p>
+    <p class="small-note">Prototype V1.0.7 · Quiz, heritage profiles and personal pilgrimage planning.</p>
   </section>`);
   document.getElementById('start').onclick=startGame;
   document.getElementById('myJourney').onclick=renderMyJourney;
@@ -368,7 +368,9 @@ function plannerMap(route){
   </div>`;
 }
 function itineraryText(plan){
-  let lines=[`My Gurdwara Pilgrimage`,`Home/start: ${plan.startName}`,`Outbound: ${plan.outboundDeparture||plan.startName} → ${plan.selectedArrival||'Pilgrimage gateway'}`,`Return: ${plan.selectedDeparture||'Pilgrimage gateway'} → ${plan.returnDestination||plan.startName}`,`Dates: ${formatDateRange(plan.startDate,plan.endDate)}`,`Approximate pilgrimage distance: ${Math.round(plan.totalKm)} km`,``];
+  let lines=[`My Gurdwara Pilgrimage`,`Home/start: ${plan.startName}`,`Outbound: ${plan.outboundDeparture||plan.startName} → ${plan.selectedArrival||'Pilgrimage gateway'}`];
+  if(plan.tripType==='multicity' && plan.multiCityStops?.length) lines.push(`Multi-city: ${plan.multiCityStops.join(' → ')}`);
+  lines.push(`Return: ${plan.selectedDeparture||'Pilgrimage gateway'} → ${plan.returnDestination||plan.startName}`,`Dates: ${formatDateRange(plan.startDate,plan.endDate)}`,`Approximate pilgrimage distance: ${Math.round(plan.totalKm)} km`,``);
   plan.route.forEach((r,i)=>{
     lines.push(`${i+1}. ${r.item.name} — ${r.item.city}, ${r.item.country}`);
     lines.push(`   Approx. ${Math.round(r.distanceFromPrevious)} km from previous stop`);
@@ -424,6 +426,45 @@ const PILGRIMAGE_GATEWAYS = [
   {city:"Patna", airport:"Jay Prakash Narayan Airport", code:"PAT", lat:25.5913,lng:85.0880},
   {city:"Nanded", airport:"Shri Guru Gobind Singh Ji Airport", code:"NDC", lat:19.1833,lng:77.3167}
 ];
+
+const AIRPORT_OPTIONS = [
+  {city:"Vancouver", country:"Canada", code:"YVR", airport:"Vancouver International Airport"},
+  {city:"Toronto", country:"Canada", code:"YYZ", airport:"Toronto Pearson International Airport"},
+  {city:"Calgary", country:"Canada", code:"YYC", airport:"Calgary International Airport"},
+  {city:"Montreal", country:"Canada", code:"YUL", airport:"Montréal–Trudeau International Airport"},
+  {city:"London", country:"United Kingdom", code:"LHR", airport:"London Heathrow Airport"},
+  {city:"Birmingham", country:"United Kingdom", code:"BHX", airport:"Birmingham Airport"},
+  {city:"Manchester", country:"United Kingdom", code:"MAN", airport:"Manchester Airport"},
+  {city:"New York", country:"United States", code:"JFK", airport:"John F. Kennedy International Airport"},
+  {city:"Newark", country:"United States", code:"EWR", airport:"Newark Liberty International Airport"},
+  {city:"San Francisco", country:"United States", code:"SFO", airport:"San Francisco International Airport"},
+  {city:"Los Angeles", country:"United States", code:"LAX", airport:"Los Angeles International Airport"},
+  {city:"Seattle", country:"United States", code:"SEA", airport:"Seattle–Tacoma International Airport"},
+  {city:"Chicago", country:"United States", code:"ORD", airport:"O'Hare International Airport"},
+  {city:"Sydney", country:"Australia", code:"SYD", airport:"Sydney Airport"},
+  {city:"Melbourne", country:"Australia", code:"MEL", airport:"Melbourne Airport"},
+  {city:"Singapore", country:"Singapore", code:"SIN", airport:"Singapore Changi Airport"},
+  {city:"Kuala Lumpur", country:"Malaysia", code:"KUL", airport:"Kuala Lumpur International Airport"},
+  {city:"Dubai", country:"United Arab Emirates", code:"DXB", airport:"Dubai International Airport"},
+  {city:"Doha", country:"Qatar", code:"DOH", airport:"Hamad International Airport"},
+  {city:"Delhi", country:"India", code:"DEL", airport:"Indira Gandhi International Airport"},
+  {city:"Amritsar", country:"India", code:"ATQ", airport:"Sri Guru Ram Dass Jee International Airport"},
+  {city:"Chandigarh", country:"India", code:"IXC", airport:"Chandigarh International Airport"},
+  {city:"Patna", country:"India", code:"PAT", airport:"Jay Prakash Narayan Airport"},
+  {city:"Nanded", country:"India", code:"NDC", airport:"Shri Guru Gobind Singh Ji Airport"}
+];
+
+function airportLabel(a){
+  return `${a.city}, ${a.country} — ${a.code}`;
+}
+function airportSelectOptions(selectedCode=''){
+  return AIRPORT_OPTIONS.map(a=>`<option value="${a.code}" ${selectedCode===a.code?'selected':''}>${escapeHtml(airportLabel(a))}</option>`).join('') +
+    `<option value="custom">Other / Enter my own</option>`;
+}
+function airportFromCode(code){
+  return AIRPORT_OPTIONS.find(a=>a.code===code);
+}
+
 
 function nearestGateway(point){
   return PILGRIMAGE_GATEWAYS
@@ -485,7 +526,10 @@ function renderPilgrimageBuilder(items){
       <div class="gateway-grid">
         <div class="gateway-box">
           <h3>✈️ Start of Pilgrimage</h3>
-          <label><span>Departure city / airport</span><input id="outboundDeparture" type="text" placeholder="e.g. Vancouver (YVR)"></label>
+          <label><span>Departure city / airport</span>
+            <select id="outboundDeparture">${airportSelectOptions('YVR')}</select>
+          </label>
+          <input id="customOutboundDeparture" class="gateway-custom" type="text" placeholder="Enter your departure city / airport" hidden>
           <label><span>Arrival gateway</span>
             <select id="arrivalGateway">
               <option value="suggested">Use our suggestion</option>
@@ -507,8 +551,27 @@ function renderPilgrimageBuilder(items){
             </select>
           </label>
           <input id="customDepartureGateway" class="gateway-custom" type="text" placeholder="Your return departure city / airport" hidden>
-          <label><span>Final destination</span><input id="returnDestination" type="text" placeholder="e.g. Vancouver (YVR)"></label>
+          <label><span>Final destination</span>
+            <select id="returnDestination">${airportSelectOptions('YVR')}</select>
+          </label>
+          <input id="customReturnDestination" class="gateway-custom" type="text" placeholder="Enter your final city / airport" hidden>
           <div class="gateway-suggestion" id="departureSuggestion"></div>
+        </div>
+      </div>
+
+      <div class="trip-type-box">
+        <label><span>Flight itinerary type</span>
+          <select id="tripType">
+            <option value="roundtrip">Round trip</option>
+            <option value="multicity">Multi-city</option>
+          </select>
+        </label>
+        <div id="multiCityWrap" class="multi-city-wrap" hidden>
+          <div class="multi-city-head">
+            <div><strong>Additional flight stops</strong><small>Add cities you want to visit before returning home.</small></div>
+            <button type="button" class="secondary mini-add-leg" id="addFlightLeg">+ Add City</button>
+          </div>
+          <div id="multiCityLegs"></div>
         </div>
       </div>
     </div>
@@ -529,6 +592,41 @@ function renderPilgrimageBuilder(items){
   const customDepartureGateway=document.getElementById('customDepartureGateway');
   const outboundDeparture=document.getElementById('outboundDeparture');
   const returnDestination=document.getElementById('returnDestination');
+  const customOutboundDeparture=document.getElementById('customOutboundDeparture');
+  const customReturnDestination=document.getElementById('customReturnDestination');
+  const tripType=document.getElementById('tripType');
+  const multiCityWrap=document.getElementById('multiCityWrap');
+  const multiCityLegs=document.getElementById('multiCityLegs');
+  let flightLegCount=0;
+
+  function selectedAirportText(selectEl, customEl){
+    if(selectEl.value==='custom') return customEl.value.trim();
+    const a=airportFromCode(selectEl.value);
+    return a ? `${a.city} (${a.code})` : selectEl.value;
+  }
+  function addMultiCityLeg(){
+    flightLegCount++;
+    const row=document.createElement('div');
+    row.className='multi-city-leg';
+    row.dataset.leg=flightLegCount;
+    row.innerHTML=`<span class="leg-number">${flightLegCount}</span>
+      <select class="multi-city-airport">${airportSelectOptions('')}</select>
+      <input class="multi-city-custom" type="text" placeholder="Enter city / airport" hidden>
+      <button type="button" class="remove-leg" aria-label="Remove city">×</button>`;
+    const sel=row.querySelector('.multi-city-airport');
+    const custom=row.querySelector('.multi-city-custom');
+    sel.addEventListener('change',()=>{custom.hidden=sel.value!=='custom'; if(!custom.hidden) custom.focus();});
+    row.querySelector('.remove-leg').onclick=()=>row.remove();
+    multiCityLegs.appendChild(row);
+  }
+
+  outboundDeparture.addEventListener('change',()=>{customOutboundDeparture.hidden=outboundDeparture.value!=='custom'; if(!customOutboundDeparture.hidden) customOutboundDeparture.focus();});
+  returnDestination.addEventListener('change',()=>{customReturnDestination.hidden=returnDestination.value!=='custom'; if(!customReturnDestination.hidden) customReturnDestination.focus();});
+  tripType.addEventListener('change',()=>{
+    multiCityWrap.hidden=tripType.value!=='multicity';
+    if(!multiCityWrap.hidden && !multiCityLegs.children.length) addMultiCityLeg();
+  });
+  document.getElementById('addFlightLeg').onclick=addMultiCityLeg;
 
   function currentChosen(){
     const ids=[...document.querySelectorAll('.planner-check input:checked')].map(x=>Number(x.value));
@@ -544,8 +642,7 @@ function renderPilgrimageBuilder(items){
     const sug=suggestedGateways(routeSeed);
     document.getElementById('arrivalSuggestion').innerHTML=`<strong>Our suggestion:</strong> ${escapeHtml(gatewayOption(sug.arrival))}<br><small>Near the beginning of your selected pilgrimage route.</small>`;
     document.getElementById('departureSuggestion').innerHTML=`<strong>Our suggestion:</strong> ${escapeHtml(gatewayOption(sug.departure))}<br><small>Near the final part of your selected pilgrimage route.</small>`;
-    if(!outboundDeparture.value) outboundDeparture.value=startName;
-    if(!returnDestination.value) returnDestination.value=startName;
+    // Keep the user's airport selections. Home-city text remains separate from airport choice.
   }
   arrivalGateway.addEventListener('change',()=>{customArrivalGateway.hidden=arrivalGateway.value!=='custom'; if(!customArrivalGateway.hidden) customArrivalGateway.focus();});
   departureGateway.addEventListener('change',()=>{customDepartureGateway.hidden=departureGateway.value!=='custom'; if(!customDepartureGateway.hidden) customDepartureGateway.focus();});
@@ -557,12 +654,7 @@ function renderPilgrimageBuilder(items){
     if(isOther) setTimeout(()=>customCityInput.focus(),50);
     setTimeout(refreshGatewaySuggestions,60);
   });
-  customCityInput.addEventListener('input',()=>{
-    if(startCitySelect.value==='Other / Home City'){
-      outboundDeparture.value=customCityInput.value;
-      returnDestination.value=customCityInput.value;
-    }
-  });
+  customCityInput.addEventListener('input',()=>{});
   refreshGatewaySuggestions();
 
   startDateInput.addEventListener('change',()=>{
@@ -617,15 +709,22 @@ function renderPilgrimageBuilder(items){
     if(arrivalGateway.value==='custom' && !selectedArrival){ alert('Enter your arrival city or airport.'); return; }
     if(departureGateway.value==='custom' && !selectedDeparture){ alert('Enter your return departure city or airport.'); return; }
     const plan={startName,startDate:document.getElementById('startDate').value,endDate:document.getElementById('endDate').value,route,totalKm,
-      outboundDeparture:outboundDeparture.value.trim()||startName,
+      outboundDeparture:selectedAirportText(outboundDeparture,customOutboundDeparture)||startName,
       suggestedArrival:gatewayOption(suggestions.arrival), selectedArrival,
       suggestedDeparture:gatewayOption(suggestions.departure), selectedDeparture,
-      returnDestination:returnDestination.value.trim()||startName};
+      returnDestination:selectedAirportText(returnDestination,customReturnDestination)||startName,
+      tripType:tripType.value,
+      multiCityStops:[...multiCityLegs.querySelectorAll('.multi-city-leg')].map(row=>{
+        const sel=row.querySelector('.multi-city-airport');
+        const custom=row.querySelector('.multi-city-custom');
+        return selectedAirportText(sel,custom);
+      }).filter(Boolean)};
     localStorage.setItem('gurdwara_last_pilgrimage', JSON.stringify({
       startName:plan.startName,startDate:plan.startDate,endDate:plan.endDate,
       route:route.map(r=>({id:r.item.id,distanceFromPrevious:r.distanceFromPrevious})),totalKm,
       outboundDeparture:plan.outboundDeparture,suggestedArrival:plan.suggestedArrival,selectedArrival:plan.selectedArrival,
-      suggestedDeparture:plan.suggestedDeparture,selectedDeparture:plan.selectedDeparture,returnDestination:plan.returnDestination
+      suggestedDeparture:plan.suggestedDeparture,selectedDeparture:plan.selectedDeparture,returnDestination:plan.returnDestination,
+      tripType:plan.tripType,multiCityStops:plan.multiCityStops
     }));
     renderPilgrimagePlan(plan);
   };
@@ -653,6 +752,9 @@ function renderPilgrimagePlan(plan){
         <div><span class="travel-icon">✈️</span><div><p class="eyebrow">GETTING TO YOUR PILGRIMAGE</p><h2>${escapeHtml(plan.outboundDeparture)} → ${escapeHtml(plan.selectedArrival)}</h2>
         <p><strong>Our suggested arrival:</strong> ${escapeHtml(plan.suggestedArrival)}${plan.selectedArrival!==plan.suggestedArrival?` · <strong>Your choice:</strong> ${escapeHtml(plan.selectedArrival)}`:''}</p></div></div>
         <div class="gateway-trip-line"><span>OUTBOUND</span><strong>${escapeHtml(plan.outboundDeparture)}</strong><b>→</b><strong>${escapeHtml(plan.selectedArrival)}</strong></div>
+        ${plan.tripType==='multicity' && plan.multiCityStops?.length
+          ? `<div class="multi-city-summary"><span>MULTI-CITY</span>${plan.multiCityStops.map((s,i)=>`<div><b>${i+1}</b>${escapeHtml(s)}</div>`).join('')}</div>`
+          : ''}
         <div class="gateway-trip-line"><span>RETURN</span><strong>${escapeHtml(plan.selectedDeparture)}</strong><b>→</b><strong>${escapeHtml(plan.returnDestination)}</strong></div>
         <p class="gateway-recommendation"><strong>Our suggested return gateway:</strong> ${escapeHtml(plan.suggestedDeparture)}${plan.selectedDeparture!==plan.suggestedDeparture?` · <strong>Your choice:</strong> ${escapeHtml(plan.selectedDeparture)}`:''}</p>
         <div class="travel-option-row"><span>✈️ Airfare lookup — next</span><span>🚆 Rail connections</span><span>🚗 Ground travel</span><span>🏨 Accommodation</span></div>

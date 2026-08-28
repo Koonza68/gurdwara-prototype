@@ -1,4 +1,4 @@
-# Gurdwara Discovery — Prototype V1.0.6
+# Gurdwara Discovery — Prototype V1.0.7
 
 ## Pilgrimage Planner
 
@@ -77,3 +77,13 @@ The OpenStreetMap iframe could show the real geography but not multiple custom m
 - Generated itinerary shows outbound and return travel legs plus both app suggestions and user overrides.
 - Gateway choices are saved with the generated itinerary.
 - Prepared the UI for future live airfare, rail, ground travel and accommodation data.
+
+
+## V1.0.7 airport dropdowns & multi-city
+- Departure and final-destination fields now use city/airport dropdowns with IATA airport codes.
+- Includes common Canadian, UK, US, Australian, Asian, Middle Eastern and Indian airports.
+- Each dropdown includes **Other / Enter my own**.
+- Added **Round trip / Multi-city** flight itinerary type.
+- Multi-city mode lets users add or remove additional city/airport stops.
+- Generated itinerary includes the multi-city sequence.
+- Airport codes are preserved in the itinerary display to prepare for later live airfare search.

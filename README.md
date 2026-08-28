@@ -1,22 +1,18 @@
-# Gurdwara Discovery — Prototype V0.7
+# Gurdwara Discovery — Prototype V0.8
 
-V0.7 introduces the **Gurdwara Profile & Journey layer**.
+V0.8 makes each Gurdwara profile more robust and interconnected.
 
 ## New
-- Full Gurdwara profile page behind the game.
-- Persistent **Visited** and **Want to Visit** buttons using local browser storage.
-- Discovery/history section with:
-  - Historical period / established date
-  - Significance to the Sikh Faith
-  - The Story
-  - Stories & Traditions
-  - Did You Know?
-  - Associated Gurus
-- Plan Your Visit section with the individual OpenStreetMap map.
-- Nearby Gurdwaras calculated from stored coordinates.
-- Placeholder area for researched pilgrimage and visitor information such as sarai/accommodation, langar, accessibility, transport and major events.
-- Results map markers can now open a Gurdwara profile.
-- Quiz answer reveal includes **Open Full Profile**.
+- Richer "Why This Gurdwara Matters" presentation.
+- Guru names in profiles are clickable.
+- Place names such as Amritsar, Anandpur Sahib, Delhi, Goindwal and Chandni Chowk can be clicked when they appear in the stored history.
+- Internal Guru profile pages show a short prototype biography and every prototype Gurdwara connected with that Guru.
+- Internal place pages explain why a location matters and list related prototype Gurdwaras.
+- New **People & Places in This Story** section.
+- Nearby Gurdwaras remain clickable and connected.
+- Quick facts at the top of each profile.
+- Sources & Verification section is separated from the main story.
+- Visited and Want to Visit remain core persistent profile actions.
 
-## Important
-Nearby distances and coordinates are prototype estimates. Visitor information, historical claims and all travel data must be verified before public release.
+## Content note
+The new Guru and place pages are prototype educational summaries. They should be expanded and formally sourced during the historical-content review. The linking architecture is now in place so future people, events, places and journeys can become connected entities rather than plain text.

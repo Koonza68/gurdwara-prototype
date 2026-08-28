@@ -45,7 +45,7 @@ const PLACE_INFO = {
 
 function shuffle(arr){ return [...arr].sort(()=>Math.random()-.5); }
 function escapeHtml(s=''){ return String(s).replace(/[&<>'"]/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;' }[c])); }
-function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V0.8</div></div>${content}`; }
+function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V0.8.1</div></div>${content}`; }
 
 
 function saveJourneyState(){
@@ -350,32 +350,57 @@ function renderSingleGurdwaraMap(item){
 }
 
 function renderResult(correct,item,earned){
-  layout(`<section class="card">
+  const related=relatedEntities(item);
+  layout(`<section class="card reveal-card">
     <div class="result-head"><div><div class="result-mark ${correct?'good':'bad'}">${correct?`✓ Correct · +${earned}`:'Answer revealed'}</div></div><div class="badge">Score ${state.score}</div></div>
     <div class="reveal-photo"><img src="${item.imageUrl}" alt="${escapeHtml(item.name)}"></div>
-    <h2>${escapeHtml(item.name)}</h2>
-    <p class="location">${escapeHtml(item.punjabi)}<br>${escapeHtml(item.city)}, ${escapeHtml(item.region)}, ${escapeHtml(item.country)}</p>
-    <div class="tag-row">${item.values.map(v=>`<span class="tag">${escapeHtml(v)}</span>`).join('')}<span class="tag">${escapeHtml(item.difficulty)}</span></div>
-    <div class="info-grid">
-      <div class="info"><h3>📅 Historical Period / Established</h3><p><strong>${escapeHtml(item.historicalPeriod)}</strong><br>${escapeHtml(item.established)}</p></div>
-      ${renderSingleGurdwaraMap(item)}
-      <div class="info"><h3>ੴ Significance to the Sikh Faith</h3><p>${escapeHtml(item.significance)}</p></div>
-      <div class="info"><h3>📖 The Story</h3><p>${escapeHtml(item.story)}</p></div>
-      <div class="info"><h3>✨ Stories & Traditions</h3><p>${escapeHtml(item.traditions)}</p></div>
-      <div class="info"><h3>💡 Did You Know?</h3><p>${escapeHtml(item.didYouKnow)}</p></div>
-      <div class="info"><h3>👤 Associated Guru(s)</h3><p>${item.gurus.map(escapeHtml).join(', ')}</p></div>
+
+    <div class="reveal-heading">
+      <div>
+        <h2>${escapeHtml(item.name)}</h2>
+        <p class="location">${escapeHtml(item.punjabi)}<br>
+          <button class="inline-entity place-link" data-place-name="${escapeHtml(item.city)}">${escapeHtml(item.city)}</button>, ${escapeHtml(item.region)}, ${escapeHtml(item.country)}
+        </p>
+      </div>
+      <span class="badge">${journeyStatus(item)}</span>
     </div>
+
+    ${renderJourneyButtons(item)}
+
+    <div class="tag-row">${item.values.map(v=>`<span class="tag">${escapeHtml(v)}</span>`).join('')}<span class="tag">${escapeHtml(item.difficulty)}</span></div>
+
+    <div class="info-grid reveal-info">
+      <div class="info"><h3>📅 Historical Period / Established</h3><p><strong>${escapeHtml(item.historicalPeriod)}</strong><br>${entityLinkText(item.established)}</p></div>
+      ${renderSingleGurdwaraMap(item)}
+      <div class="info"><h3>ੴ Significance to the Sikh Faith</h3><p>${entityLinkText(item.significance)}</p></div>
+      <div class="info"><h3>📖 The Story</h3><p>${entityLinkText(item.story)}</p></div>
+      <div class="info"><h3>✨ Stories & Traditions</h3><p>${entityLinkText(item.traditions)}</p></div>
+      <div class="info"><h3>💡 Did You Know?</h3><p>${entityLinkText(item.didYouKnow)}</p></div>
+      <div class="info"><h3>👤 Associated Guru(s)</h3><p>${item.gurus.map(g=>`<button class="inline-entity" data-guru-name="${escapeHtml(g)}">${escapeHtml(g)}</button>`).join(', ')}</p></div>
+    </div>
+
+    <div class="related-reveal">
+      <h3>🔗 Explore People & Places</h3>
+      <div class="entity-grid compact-entities">
+        ${related.gurus.map(g=>`<button class="entity-card" data-guru-name="${escapeHtml(g)}"><span class="entity-card-icon">ੴ</span><div><strong>${escapeHtml(g)}</strong><small>Open Guru profile</small></div></button>`).join('')}
+        ${related.places.map(p=>`<button class="entity-card" data-place-name="${escapeHtml(p)}"><span class="entity-card-icon">📍</span><div><strong>${escapeHtml(p)}</strong><small>Explore this place</small></div></button>`).join('')}
+      </div>
+    </div>
+
     <div class="discovered">🏛️ <strong>Added to your discovered collection.</strong><br><span class="small-note">${discovered.size} of ${data.length} prototype gurdwaras discovered.</span></div>
-    <p class="photo-source"><a href="${item.imagePage}" target="_blank" rel="noopener">Prototype photo source: Wikimedia Commons</a></p>
+
     <div class="row result-actions">
       <button class="secondary" id="profileBtn">Open Full Profile</button>
       <button class="primary" id="next">${state.roundIndex===TOTAL_ROUNDS-1?'See Results':'Next Gurdwara'}</button>
     </div>
   </section>`);
+
+  bindJourneyButtons(item,()=>renderResult(correct,item,earned));
+  bindEntityLinks('game');
+
   document.getElementById('profileBtn').onclick=()=>renderProfile(item,'game');
   document.getElementById('next').onclick=()=>{ if(state.roundIndex===TOTAL_ROUNDS-1) renderEnd(); else {state.roundIndex++;beginRound();} };
 }
-
 function renderEnd(){
   const pct=Math.round((state.correctCount/TOTAL_ROUNDS)*100);
   const markers=data.filter(x=>Number.isFinite(x.lat)&&Number.isFinite(x.lng)).map(x=>{

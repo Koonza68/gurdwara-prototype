@@ -173,3 +173,12 @@ p { line-height:1.55; }
 .research-note{margin-top:18px;padding:13px;border-radius:14px;background:#fff8e8;border:1px solid #d7c28e;color:#5c4a28}
 .source-section{padding-bottom:4px}
 @media(max-width:650px){.profile-heading-row{flex-direction:column}.quick-facts{grid-template-columns:1fr}.entity-grid{grid-template-columns:1fr}}
+
+.reveal-heading{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.reveal-heading h2{margin-bottom:5px}
+.reveal-card .journey-actions{margin:14px 0 10px}
+.reveal-info .info p{line-height:1.65}
+.related-reveal{margin:18px 0;padding-top:15px;border-top:1px solid var(--line)}
+.related-reveal h3{margin:0 0 10px}
+.compact-entities .entity-card{padding:10px 11px}
+@media(max-width:560px){.reveal-heading{flex-direction:column}.compact-entities{grid-template-columns:1fr}}

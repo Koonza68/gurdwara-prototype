@@ -45,7 +45,7 @@ const PLACE_INFO = {
 
 function shuffle(arr){ return [...arr].sort(()=>Math.random()-.5); }
 function escapeHtml(s=''){ return String(s).replace(/[&<>'"]/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;' }[c])); }
-function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V1.0.7</div></div>${content}`; }
+function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V1.1</div></div>${content}`; }
 
 
 function saveJourneyState(){
@@ -247,7 +247,7 @@ function renderProfile(item, returnMode='game'){
       </div>
     </div>
   </section>`);
-  document.getElementById('profileBack').onclick=()=> returnMode==='journey' ? renderMyJourney() : history.back();
+  document.getElementById('profileBack').onclick=()=> returnMode==='journey' ? renderMyJourney() : returnMode==='explore' ? renderExplore() : history.back();
   bindJourneyButtons(item,()=>renderProfile(item,returnMode));
   bindEntityLinks(returnMode);
 }
@@ -263,10 +263,12 @@ function renderHome(){
       <div class="stat"><strong>${visited.size}</strong><span>Visited</span></div>
     </div>
     <button class="primary" id="start">Start Photo Challenge</button>
+    <button class="journey-home-btn explore-home-btn" id="exploreGurdwaras">🏛️ Explore Gurdwaras <span>Browse all ${data.length}</span></button>
     <button class="journey-home-btn" id="myJourney">🧭 My Journey <span>${wantToVisit.size} Want to Visit</span></button>
-    <p class="small-note">Prototype V1.0.7 · Quiz, heritage profiles and personal pilgrimage planning.</p>
+    <p class="small-note">Prototype V1.1 · Quiz, heritage profiles and personal pilgrimage planning.</p>
   </section>`);
   document.getElementById('start').onclick=startGame;
+  document.getElementById('exploreGurdwaras').onclick=()=>renderExplore();
   document.getElementById('myJourney').onclick=renderMyJourney;
 }
 
@@ -807,6 +809,97 @@ function renderPilgrimagePlan(plan){
     const item=data.find(x=>x.id===Number(el.dataset.planProfile));
     if(item) renderProfile(item,'journey');
   });
+}
+
+
+let exploreState={view:'list',query:'',region:'all',guru:'all',status:'all'};
+
+function exploreFiltered(){
+  const q=exploreState.query.toLowerCase().trim();
+  return data.filter(x=>{
+    const hay=[x.name,x.punjabi,x.city,x.region,x.country,...(x.gurus||[]),...(x.values||[])].join(' ').toLowerCase();
+    const regionOK=exploreState.region==='all'||x.region===exploreState.region||x.country===exploreState.region;
+    const guruOK=exploreState.guru==='all'||(x.gurus||[]).includes(exploreState.guru);
+    const statusOK=exploreState.status==='all'
+      ||(exploreState.status==='visited'&&visited.has(x.id))
+      ||(exploreState.status==='want'&&wantToVisit.has(x.id))
+      ||(exploreState.status==='discovered'&&discovered.has(x.id));
+    return (!q||hay.includes(q))&&regionOK&&guruOK&&statusOK;
+  });
+}
+function exploreCard(x){
+  const both=visited.has(x.id)&&wantToVisit.has(x.id);
+  return `<article class="explore-card" data-explore-profile="${x.id}">
+    <div class="explore-photo"><img src="${x.imageUrl}" alt="${escapeHtml(x.name)}"><span>${escapeHtml(x.country)}</span></div>
+    <div class="explore-card-body">
+      <h3>${escapeHtml(x.name)}</h3><p>${escapeHtml(x.punjabi)}</p>
+      <div class="explore-location">📍 ${escapeHtml(x.city)}, ${escapeHtml(x.region)}</div>
+      <div class="explore-gurus">${(x.gurus||[]).slice(0,2).map(g=>`<span>${escapeHtml(g)}</span>`).join('')}</div>
+      <div class="explore-status">${both?'🙏 Visited · 🧭 Visit Again':visited.has(x.id)?'🙏 Visited':wantToVisit.has(x.id)?'🧭 Want to Visit':discovered.has(x.id)?'🏛️ Discovered':'○ Not discovered'}</div>
+    </div>
+  </article>`;
+}
+function exploreMap(items){
+  return `<div class="card explore-map-card">
+    <div id="exploreLeafletMap" class="leaflet-journey-map explore-map"></div>
+    <p class="map-note">Map © OpenStreetMap contributors. Click a numbered marker to identify a Gurdwara.</p>
+  </div>`;
+}
+function initExploreMap(items){
+  const located=items.filter(x=>Number.isFinite(x.lat)&&Number.isFinite(x.lng));
+  const el=document.getElementById('exploreLeafletMap');
+  if(!el||!window.L||!located.length)return;
+  const map=L.map('exploreLeafletMap',{scrollWheelZoom:false});
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+  const bounds=[];
+  located.forEach((x,i)=>{
+    const icon=L.divIcon({className:'numbered-leaflet-icon',html:`<span>${i+1}</span>`,iconSize:[32,32],iconAnchor:[16,16]});
+    const marker=L.marker([x.lat,x.lng],{icon}).addTo(map);
+    marker.bindPopup(`<strong>${escapeHtml(x.name)}</strong><br>${escapeHtml(x.city)}, ${escapeHtml(x.country)}<br><button class="popup-profile" data-id="${x.id}">Open Profile</button>`);
+    marker.on('popupopen',()=>{
+      setTimeout(()=>{
+        const btn=document.querySelector(`.popup-profile[data-id="${x.id}"]`);
+        if(btn)btn.onclick=()=>renderProfile(x,'explore');
+      },0);
+    });
+    bounds.push([x.lat,x.lng]);
+  });
+  if(bounds.length===1)map.setView(bounds[0],9);else map.fitBounds(bounds,{padding:[25,25],maxZoom:8});
+  setTimeout(()=>map.invalidateSize(),100);
+}
+function renderExplore(){
+  const regions=[...new Set(data.flatMap(x=>[x.region,x.country]).filter(Boolean))].sort();
+  const gurus=[...new Set(data.flatMap(x=>x.gurus||[]))].sort();
+  const items=exploreFiltered();
+  layout(`<section class="explore-page">
+    <div class="card explore-hero">
+      <div class="profile-top"><button class="secondary back-profile" id="exploreHome">← Home</button><span class="badge">${items.length} Gurdwaras</span></div>
+      <p class="eyebrow">SIKH HERITAGE DIRECTORY</p><h1>Explore Gurdwaras</h1>
+      <p>Browse sacred places by name, Guru, region, map or your personal journey.</p>
+      <div class="explore-search"><input id="exploreSearch" type="search" value="${escapeHtml(exploreState.query)}" placeholder="Search Gurdwara, city, Guru or region…"></div>
+      <div class="explore-filters">
+        <select id="regionFilter"><option value="all">All regions</option>${regions.map(r=>`<option value="${escapeHtml(r)}" ${exploreState.region===r?'selected':''}>${escapeHtml(r)}</option>`).join('')}</select>
+        <select id="guruFilter"><option value="all">All Gurus</option>${gurus.map(g=>`<option value="${escapeHtml(g)}" ${exploreState.guru===g?'selected':''}>${escapeHtml(g)}</option>`).join('')}</select>
+        <select id="statusFilter">
+          <option value="all" ${exploreState.status==='all'?'selected':''}>All journey statuses</option>
+          <option value="visited" ${exploreState.status==='visited'?'selected':''}>Visited</option>
+          <option value="want" ${exploreState.status==='want'?'selected':''}>Want to Visit</option>
+          <option value="discovered" ${exploreState.status==='discovered'?'selected':''}>Discovered</option>
+        </select>
+        <div class="view-toggle"><button class="${exploreState.view==='list'?'active':''}" data-view="list">☷ List</button><button class="${exploreState.view==='map'?'active':''}" data-view="map">⌖ Map</button></div>
+      </div>
+    </div>
+    ${items.length ? (exploreState.view==='map'?exploreMap(items):`<div class="explore-grid">${items.map(exploreCard).join('')}</div>`) : `<div class="card journey-empty">No Gurdwaras match those filters.</div>`}
+  </section>`);
+  document.getElementById('exploreHome').onclick=renderHome;
+  const search=document.getElementById('exploreSearch');
+  search.oninput=()=>{exploreState.query=search.value; clearTimeout(window._exploreTimer); window._exploreTimer=setTimeout(renderExplore,180);};
+  document.getElementById('regionFilter').onchange=e=>{exploreState.region=e.target.value;renderExplore();};
+  document.getElementById('guruFilter').onchange=e=>{exploreState.guru=e.target.value;renderExplore();};
+  document.getElementById('statusFilter').onchange=e=>{exploreState.status=e.target.value;renderExplore();};
+  document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{exploreState.view=b.dataset.view;renderExplore();});
+  document.querySelectorAll('[data-explore-profile]').forEach(el=>el.onclick=()=>{const x=data.find(d=>d.id===Number(el.dataset.exploreProfile));if(x)renderProfile(x,'explore');});
+  if(exploreState.view==='map')initExploreMap(items);
 }
 
 function startGame(){

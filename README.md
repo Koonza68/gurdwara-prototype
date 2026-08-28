@@ -1,4 +1,4 @@
-# Gurdwara Discovery — Prototype V1.0.7
+# Gurdwara Discovery — Prototype V1.1
 
 ## Pilgrimage Planner
 
@@ -87,3 +87,16 @@ The OpenStreetMap iframe could show the real geography but not multiple custom m
 - Multi-city mode lets users add or remove additional city/airport stops.
 - Generated itinerary includes the multi-city sequence.
 - Airport codes are preserved in the itinerary display to prepare for later live airfare search.
+
+
+## V1.1 Explore Gurdwaras
+- New **Explore Gurdwaras** entry on the home screen.
+- Search by Gurdwara name, city, Guru or region.
+- Filter by region/country, associated Guru, Visited, Want to Visit or Discovered.
+- Browse all prototype Gurdwaras as visual directory cards.
+- Toggle between **List** and **Map** views.
+- Explore map uses Leaflet/OpenStreetMap with numbered markers and profile popups.
+- Directory cards display location, associated Gurus and personal journey status.
+- Gurdwara profiles return naturally to Explore when opened from the directory.
+
+The core app navigation is now Play → Explore → My Journey.

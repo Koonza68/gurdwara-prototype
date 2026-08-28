@@ -45,7 +45,7 @@ const PLACE_INFO = {
 
 function shuffle(arr){ return [...arr].sort(()=>Math.random()-.5); }
 function escapeHtml(s=''){ return String(s).replace(/[&<>'"]/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;' }[c])); }
-function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V1.0.1</div></div>${content}`; }
+function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V1.0.3</div></div>${content}`; }
 
 
 function saveJourneyState(){
@@ -264,19 +264,37 @@ function renderHome(){
     </div>
     <button class="primary" id="start">Start Photo Challenge</button>
     <button class="journey-home-btn" id="myJourney">🧭 My Journey <span>${wantToVisit.size} Want to Visit</span></button>
-    <p class="small-note">Prototype V1.0.1 · Quiz, heritage profiles and personal pilgrimage planning.</p>
+    <p class="small-note">Prototype V1.0.3 · Quiz, heritage profiles and personal pilgrimage planning.</p>
   </section>`);
   document.getElementById('start').onclick=startGame;
   document.getElementById('myJourney').onclick=renderMyJourney;
 }
 
 function journeyMap(items){
-  if(!items.length) return `<div class="empty-map">Add Gurdwaras to Want to Visit to begin your pilgrimage map.</div>`;
-  const markers=items.filter(x=>Number.isFinite(x.lat)&&Number.isFinite(x.lng)).map((x,i)=>{
-    const left=((x.lng-68)/(88-68))*100, top=(1-((x.lat-18)/(35-18)))*100;
-    return `<button class="map-marker found" style="left:${Math.max(2,Math.min(98,left))}%;top:${Math.max(3,Math.min(97,top))}%" data-journey-profile="${x.id}" title="${escapeHtml(x.name)}"><span>${i+1}</span></button>`;
-  }).join('');
-  return `<div class="prototype-map journey-map"><div class="map-land"></div>${markers}<div class="map-label pakistan">Pakistan</div><div class="map-label india">India</div></div>`;
+  const located=items.filter(x=>Number.isFinite(x.lat)&&Number.isFinite(x.lng));
+  if(!located.length) return `<div class="empty-map">Add Gurdwaras to Want to Visit to begin your pilgrimage map.</div>`;
+
+  const lats=located.map(x=>x.lat), lngs=located.map(x=>x.lng);
+  let minLat=Math.min(...lats), maxLat=Math.max(...lats), minLng=Math.min(...lngs), maxLng=Math.max(...lngs);
+  const latPad=Math.max(0.35,(maxLat-minLat)*0.18);
+  const lngPad=Math.max(0.35,(maxLng-minLng)*0.18);
+  minLat-=latPad; maxLat+=latPad; minLng-=lngPad; maxLng+=lngPad;
+
+  const bbox=`${minLng}%2C${minLat}%2C${maxLng}%2C${maxLat}`;
+  const centerLat=(minLat+maxLat)/2, centerLng=(minLng+maxLng)/2;
+  const osmEmbed=`https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik`;
+  const fullMap=`https://www.openstreetmap.org/?mlat=${centerLat}&mlon=${centerLng}#map=6/${centerLat}/${centerLng}`;
+
+  return `<div class="real-journey-map">
+    <iframe title="Map of Gurdwaras I want to visit" src="${osmEmbed}" loading="lazy"></iframe>
+    <div class="map-location-list">
+      ${located.map((x,i)=>`<button class="map-location-chip" data-journey-profile="${x.id}">
+        <span>${i+1}</span><div><strong>${escapeHtml(x.name)}</strong><small>${escapeHtml(x.city)}, ${escapeHtml(x.country)}</small></div>
+      </button>`).join('')}
+    </div>
+    <a class="secondary full-map-link" href="${fullMap}" target="_blank" rel="noopener">Open Full Map</a>
+    <p class="map-note">Map © OpenStreetMap contributors. Tap a Gurdwara below the map to open its profile.</p>
+  </div>`;
 }
 function renderJourneyCollection(items,type){
   if(!items.length) return `<div class="journey-empty">Nothing here yet. Explore Gurdwaras and use the ${type==='visited'?'Visited':'Want to Visit'} button to add them.</div>`;
@@ -322,14 +340,19 @@ function formatDateRange(start,end){
   return start?`Starting ${fmt(start)}`:`Ending ${fmt(end)}`;
 }
 function plannerMap(route){
-  const items=route.map(x=>x.item);
+  const items=route.map(x=>x.item).filter(x=>Number.isFinite(x.lat)&&Number.isFinite(x.lng));
   if(!items.length) return '';
-  const markers=items.map((x,i)=>{
-    const left=((x.lng-68)/(88-68))*100;
-    const top=(1-((x.lat-18)/(35-18)))*100;
-    return `<button class="map-marker found" style="left:${Math.max(2,Math.min(98,left))}%;top:${Math.max(3,Math.min(97,top))}%" title="${escapeHtml(x.name)}"><span>${i+1}</span></button>`;
-  }).join('');
-  return `<div class="prototype-map pilgrimage-route-map"><div class="map-land"></div>${markers}<div class="map-label pakistan">Pakistan</div><div class="map-label india">India</div></div>`;
+  const lats=items.map(x=>x.lat), lngs=items.map(x=>x.lng);
+  let minLat=Math.min(...lats), maxLat=Math.max(...lats), minLng=Math.min(...lngs), maxLng=Math.max(...lngs);
+  const latPad=Math.max(0.35,(maxLat-minLat)*0.18);
+  const lngPad=Math.max(0.35,(maxLng-minLng)*0.18);
+  minLat-=latPad; maxLat+=latPad; minLng-=lngPad; maxLng+=lngPad;
+  const bbox=`${minLng}%2C${minLat}%2C${maxLng}%2C${maxLat}`;
+  return `<div class="real-journey-map pilgrimage-real-map">
+    <iframe title="Pilgrimage route area map" src="https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik" loading="lazy"></iframe>
+    <div class="route-legend">${items.map((x,i)=>`<div><span>${i+1}</span><strong>${escapeHtml(x.name)}</strong><small>${escapeHtml(x.city)}</small></div>`).join('')}</div>
+    <p class="map-note">Map © OpenStreetMap contributors. Stop numbers correspond to the suggested itinerary below.</p>
+  </div>`;
 }
 function itineraryText(plan){
   let lines=[`My Gurdwara Pilgrimage`,`Start: ${plan.startName}`,`Dates: ${formatDateRange(plan.startDate,plan.endDate)}`,`Approximate travel distance: ${Math.round(plan.totalKm)} km`,``];
@@ -378,6 +401,15 @@ function renderMyJourney(){
   const build=document.getElementById('buildPilgrimage');
   if(build && !build.disabled) build.onclick=()=>renderPilgrimageBuilder(wishItems);
 }
+
+function addDaysIso(iso, days){
+  if(!iso) return '';
+  const d=new Date(`${iso}T12:00:00`);
+  d.setDate(d.getDate()+days);
+  const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), day=String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+
 function renderPilgrimageBuilder(items){
   layout(`<section class="card profile-card planner-card">
     <div class="profile-top"><button class="secondary back-profile" id="builderBack">← My Journey</button><span class="badge">Pilgrimage Planner V1.0</span></div>
@@ -408,6 +440,34 @@ function renderPilgrimageBuilder(items){
   </section>`);
 
   document.getElementById('builderBack').onclick=renderMyJourney;
+
+  const startDateInput=document.getElementById('startDate');
+  const endDateInput=document.getElementById('endDate');
+
+  startDateInput.addEventListener('change',()=>{
+    const start=startDateInput.value;
+    if(!start) return;
+
+    // End date can never be before the start date.
+    endDateInput.min=start;
+
+    // Default the trip to one week later, or repair an invalid earlier end date.
+    const suggestedEnd=addDaysIso(start,7);
+    if(!endDateInput.value || endDateInput.value < start){
+      endDateInput.value=suggestedEnd;
+    }
+
+    // Updating the end-date value also causes most browser date pickers
+    // to open around the selected later month/date.
+  });
+
+  endDateInput.addEventListener('change',()=>{
+    const start=startDateInput.value;
+    if(start && endDateInput.value && endDateInput.value < start){
+      endDateInput.value=addDaysIso(start,7);
+    }
+  });
+
   document.getElementById('generatePlan').onclick=()=>{
     const ids=[...document.querySelectorAll('.planner-check input:checked')].map(x=>Number(x.value));
     const chosen=data.filter(x=>ids.includes(x.id));

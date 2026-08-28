@@ -1,4 +1,4 @@
-# Gurdwara Discovery — Prototype V1.0.1
+# Gurdwara Discovery — Prototype V1.0.3
 
 ## Pilgrimage Planner
 
@@ -31,3 +31,21 @@ A user can:
 - see combined status as **Visited · Want to Visit Again**.
 
 The pilgrimage planner continues to use the Want to Visit collection, regardless of whether a Gurdwara has already been visited.
+
+
+## V1.0.2 map upgrade
+The schematic India/Pakistan map on My Journey has been replaced with a real OpenStreetMap view.
+
+- Map automatically fits the saved Want to Visit Gurdwaras.
+- Gurdwaras are listed immediately below the map with numbered location chips.
+- Location chips open the corresponding Gurdwara profile.
+- Added Open Full Map.
+- The generated pilgrimage itinerary now uses the same real map approach with a numbered route legend.
+- Visited and Want to Visit remain independent states.
+
+
+## V1.0.3 smarter date selection
+- When a Start Date is selected, End Date automatically defaults to 7 days later.
+- End Date is constrained so it cannot be earlier than Start Date.
+- If the user changes Start Date beyond the current End Date, End Date automatically repairs to 7 days later.
+- Because the End Date field is pre-populated with the later date, browser date pickers generally open around that later month/date, reducing extra calendar navigation.

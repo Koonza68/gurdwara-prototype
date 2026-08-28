@@ -64,3 +64,7 @@ p { line-height:1.55; }
 @media (max-width:560px){
   .app-shell{padding:12px}.card{border-radius:20px;padding:17px}.hero{padding:28px 16px}.row{flex-direction:column}.brand{padding:0 4px}.stats{gap:6px}.stat{padding:10px 5px}
 }
+.hint-stack { display:grid; gap:9px; margin:0 0 14px; }
+.hint { border:1px solid #d7c28e; background:#fff8e8; border-radius:14px; padding:12px 14px; display:grid; gap:3px; }
+.hint strong { font-size:.82rem; color:#7d571d; }
+.hint span { line-height:1.42; color:#3d3a33; }

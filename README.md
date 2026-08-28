@@ -1,4 +1,4 @@
-# Gurdwara Discovery — Prototype V0.1
+# Gurdwara Discovery — Prototype V0.2
 
 A mobile-first static web prototype for an educational Sikh gurdwara identification game.
 
@@ -35,3 +35,12 @@ Python is **not** part of the app; this command is only a convenient local web s
 
 ## Important content note
 The historical text is prototype content assembled for UI/gameplay testing. Before a public release, each record should be reviewed against authoritative Sikh historical sources, spelling conventions, dates, image licensing, and any areas where documented history differs from oral tradition.
+
+
+## V0.2 changes
+- Three attempts per question
+- Progressive hints after incorrect guesses
+- Second hint reveals location
+- Declining points: 100 / 75 / 50
+- Answer buttons no longer reveal city/country
+- First-try streak tracking

@@ -11,7 +11,7 @@ const discovered = new Set(JSON.parse(localStorage.getItem('gurdwara_discovered'
 
 function shuffle(arr){ return [...arr].sort(()=>Math.random()-.5); }
 function escapeHtml(s=''){ return String(s).replace(/[&<>'"]/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;' }[c])); }
-function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V0.5</div></div>${content}`; }
+function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V0.6</div></div>${content}`; }
 
 function renderHome(){
   layout(`<section class="card hero">
@@ -96,6 +96,24 @@ function answer(id){
   else { discovered.add(item.id); localStorage.setItem('gurdwara_discovered',JSON.stringify([...discovered])); state.answeredCount++; renderResult(false,item,0); }
 }
 
+
+function renderSingleGurdwaraMap(item){
+  if(!Number.isFinite(item.lat) || !Number.isFinite(item.lng)) return '';
+  const mapUrl=`https://www.openstreetmap.org/export/embed.html?bbox=${item.lng-0.18}%2C${item.lat-0.12}%2C${item.lng+0.18}%2C${item.lat+0.12}&layer=mapnik&marker=${item.lat}%2C${item.lng}`;
+  const openUrl=`https://www.openstreetmap.org/?mlat=${item.lat}&mlon=${item.lng}#map=14/${item.lat}/${item.lng}`;
+  return `<div class="info map-info">
+    <h3>📍 Map & Location</h3>
+    <div class="single-map-wrap">
+      <iframe class="single-map" src="${mapUrl}" title="Map showing ${escapeHtml(item.name)}" loading="lazy"></iframe>
+    </div>
+    <div class="map-actions">
+      <div><strong>${escapeHtml(item.city)}, ${escapeHtml(item.region)}, ${escapeHtml(item.country)}</strong><br>
+      <span class="small-note">Approximate prototype coordinates</span></div>
+      <a class="secondary map-link" href="${openUrl}" target="_blank" rel="noopener">Open Full Map</a>
+    </div>
+  </div>`;
+}
+
 function renderResult(correct,item,earned){
   layout(`<section class="card">
     <div class="result-head"><div><div class="result-mark ${correct?'good':'bad'}">${correct?`✓ Correct · +${earned}`:'Answer revealed'}</div></div><div class="badge">Score ${state.score}</div></div>
@@ -105,6 +123,7 @@ function renderResult(correct,item,earned){
     <div class="tag-row">${item.values.map(v=>`<span class="tag">${escapeHtml(v)}</span>`).join('')}<span class="tag">${escapeHtml(item.difficulty)}</span></div>
     <div class="info-grid">
       <div class="info"><h3>📅 Historical Period / Established</h3><p><strong>${escapeHtml(item.historicalPeriod)}</strong><br>${escapeHtml(item.established)}</p></div>
+      ${renderSingleGurdwaraMap(item)}
       <div class="info"><h3>ੴ Significance to the Sikh Faith</h3><p>${escapeHtml(item.significance)}</p></div>
       <div class="info"><h3>📖 The Story</h3><p>${escapeHtml(item.story)}</p></div>
       <div class="info"><h3>✨ Stories & Traditions</h3><p>${escapeHtml(item.traditions)}</p></div>

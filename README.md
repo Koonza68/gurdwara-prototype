@@ -1,4 +1,4 @@
-# Gurdwara Discovery — Prototype V1.0.3
+# Gurdwara Discovery — Prototype V1.0.5
 
 ## Pilgrimage Planner
 
@@ -49,3 +49,21 @@ The schematic India/Pakistan map on My Journey has been replaced with a real Ope
 - End Date is constrained so it cannot be earlier than Start Date.
 - If the user changes Start Date beyond the current End Date, End Date automatically repairs to 7 days later.
 - Because the End Date field is pre-populated with the later date, browser date pickers generally open around that later month/date, reducing extra calendar navigation.
+
+
+## V1.0.4 map-marker fix
+The OpenStreetMap iframe could show the real geography but not multiple custom markers. The journey maps now use Leaflet with OpenStreetMap tiles.
+
+- Every Want to Visit Gurdwara appears as a numbered marker.
+- The map automatically zooms to fit all selected Gurdwaras.
+- Clicking a marker shows the Gurdwara name and location.
+- Marker numbers match the list below the map.
+- The generated pilgrimage itinerary uses the same numbered-marker map.
+
+
+## V1.0.5 home-city travel origin
+- Starting City now includes **Other / Home City**.
+- Choosing Other reveals a free-text Home City field (for example Vancouver, BC, Canada).
+- The custom home city appears as the true starting point in the generated itinerary.
+- Added a Getting There section for future Flights, Rail Connections, Ground Travel and Accommodation.
+- Custom home-city international distance is intentionally not included in the current approximate kilometre calculation because live geocoding/routing has not yet been integrated.

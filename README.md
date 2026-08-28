@@ -1,4 +1,4 @@
-# Gurdwara Discovery — Prototype V1.0.5
+# Gurdwara Discovery — Prototype V1.0.6
 
 ## Pilgrimage Planner
 
@@ -67,3 +67,13 @@ The OpenStreetMap iframe could show the real geography but not multiple custom m
 - The custom home city appears as the true starting point in the generated itinerary.
 - Added a Getting There section for future Flights, Rail Connections, Ground Travel and Accommodation.
 - Custom home-city international distance is intentionally not included in the current approximate kilometre calculation because live geocoding/routing has not yet been integrated.
+
+
+## V1.0.6 departure & arrival gateway planner
+- App suggests an arrival gateway based on the beginning of the selected pilgrimage route.
+- App suggests a return departure gateway based on the end of the selected route.
+- Users can accept the suggestion, choose another supported gateway, or enter their own city/airport.
+- Users can specify their outbound departure city/airport and final return destination.
+- Generated itinerary shows outbound and return travel legs plus both app suggestions and user overrides.
+- Gateway choices are saved with the generated itinerary.
+- Prepared the UI for future live airfare, rail, ground travel and accommodation data.

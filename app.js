@@ -45,7 +45,7 @@ const PLACE_INFO = {
 
 function shuffle(arr){ return [...arr].sort(()=>Math.random()-.5); }
 function escapeHtml(s=''){ return String(s).replace(/[&<>'"]/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;' }[c])); }
-function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V0.8.1</div></div>${content}`; }
+function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V0.9</div></div>${content}`; }
 
 
 function saveJourneyState(){
@@ -243,7 +243,7 @@ function renderProfile(item, returnMode='game'){
       </div>
     </div>
   </section>`);
-  document.getElementById('profileBack').onclick=()=>history.back();
+  document.getElementById('profileBack').onclick=()=> returnMode==='journey' ? renderMyJourney() : history.back();
   bindJourneyButtons(item,()=>renderProfile(item,returnMode));
   bindEntityLinks(returnMode);
 }
@@ -252,16 +252,88 @@ function renderHome(){
   layout(`<section class="card hero">
     <div class="ik-onkar">ੴ</div>
     <h1>Discover the Gurdwaras</h1>
-    <p class="lead">Match the Gurdwara name to the correct photograph, then discover its history, significance, stories and traditions.</p>
+    <p class="lead">Play, learn and begin building your own Sikh heritage journey.</p>
     <div class="stats">
-      <div class="stat"><strong>20</strong><span>Gurdwaras</span></div>
-      <div class="stat"><strong>10</strong><span>Rounds</span></div>
+      <div class="stat"><strong>${data.length}</strong><span>Gurdwaras</span></div>
       <div class="stat"><strong>${discovered.size}</strong><span>Discovered</span></div>
+      <div class="stat"><strong>${visited.size}</strong><span>Visited</span></div>
     </div>
     <button class="primary" id="start">Start Photo Challenge</button>
-    <p class="small-note">V0.4 uses a curated photograph for each prototype Gurdwara rather than automatic Wikipedia thumbnails.</p>
+    <button class="journey-home-btn" id="myJourney">🧭 My Journey <span>${wantToVisit.size} Want to Visit</span></button>
+    <p class="small-note">Prototype V0.9 · Quiz, heritage profiles and personal pilgrimage planning.</p>
   </section>`);
   document.getElementById('start').onclick=startGame;
+  document.getElementById('myJourney').onclick=renderMyJourney;
+}
+
+function journeyMap(items){
+  if(!items.length) return `<div class="empty-map">Add Gurdwaras to Want to Visit to begin your pilgrimage map.</div>`;
+  const markers=items.filter(x=>Number.isFinite(x.lat)&&Number.isFinite(x.lng)).map((x,i)=>{
+    const left=((x.lng-68)/(88-68))*100, top=(1-((x.lat-18)/(35-18)))*100;
+    return `<button class="map-marker found" style="left:${Math.max(2,Math.min(98,left))}%;top:${Math.max(3,Math.min(97,top))}%" data-journey-profile="${x.id}" title="${escapeHtml(x.name)}"><span>${i+1}</span></button>`;
+  }).join('');
+  return `<div class="prototype-map journey-map"><div class="map-land"></div>${markers}<div class="map-label pakistan">Pakistan</div><div class="map-label india">India</div></div>`;
+}
+function renderJourneyCollection(items,type){
+  if(!items.length) return `<div class="journey-empty">Nothing here yet. Explore Gurdwaras and use the ${type==='visited'?'Visited':'Want to Visit'} button to add them.</div>`;
+  return `<div class="journey-list">${items.map(x=>`<article class="journey-item">
+    <img src="${x.imageUrl}" alt="${escapeHtml(x.name)}">
+    <div class="journey-item-body"><strong>${escapeHtml(x.name)}</strong><span>${escapeHtml(x.city)}, ${escapeHtml(x.country)}</span>
+      <button class="mini-profile-btn" data-journey-profile="${x.id}">Open Profile</button>
+    </div>
+  </article>`).join('')}</div>`;
+}
+function renderMyJourney(){
+  const visitedItems=data.filter(x=>visited.has(x.id));
+  const wishItems=data.filter(x=>wantToVisit.has(x.id));
+  const discoveredItems=data.filter(x=>discovered.has(x.id));
+  layout(`<section class="journey-page">
+    <div class="card journey-hero">
+      <div class="profile-top"><button class="secondary back-profile" id="journeyHome">← Home</button><span class="badge">My Journey</span></div>
+      <div class="journey-title"><div><p class="eyebrow">YOUR SIKH HERITAGE JOURNEY</p><h1>My Journey</h1>
+      <p>Keep track of where you've been and where you'd like to go next.</p></div><div class="journey-symbol">ੴ</div></div>
+      <div class="journey-stats">
+        <div><strong>${discoveredItems.length}</strong><span>Discovered</span></div>
+        <div><strong>${visitedItems.length}</strong><span>Visited</span></div>
+        <div><strong>${wishItems.length}</strong><span>Want to Visit</span></div>
+        <div><strong>${data.length-visitedItems.length}</strong><span>Still to Explore</span></div>
+      </div>
+    </div>
+
+    <div class="card pilgrimage-card">
+      <div class="section-heading"><div><p class="eyebrow">PILGRIMAGE PLANNER</p><h2>🧭 Places I Want to Visit</h2>
+      <p>Your saved Gurdwaras are the beginning of a personal pilgrimage.</p></div>
+      <button class="primary small-primary" id="buildPilgrimage" ${wishItems.length?'':'disabled'}>Build My Pilgrimage</button></div>
+      ${journeyMap(wishItems)}
+      ${renderJourneyCollection(wishItems,'want')}
+    </div>
+
+    <div class="journey-columns">
+      <div class="card"><h2>🙏 Visited</h2><p class="section-intro">Gurdwaras you've marked as part of your journey.</p>${renderJourneyCollection(visitedItems,'visited')}</div>
+      <div class="card"><h2>🏛️ Discovered</h2><p class="section-intro">Gurdwaras you've encountered while playing.</p>${renderJourneyCollection(discoveredItems,'discovered')}</div>
+    </div>
+  </section>`);
+  document.getElementById('journeyHome').onclick=renderHome;
+  document.querySelectorAll('[data-journey-profile]').forEach(el=>el.onclick=()=>{
+    const item=data.find(x=>x.id===Number(el.dataset.journeyProfile));
+    if(item) renderProfile(item,'journey');
+  });
+  const build=document.getElementById('buildPilgrimage');
+  if(build && !build.disabled) build.onclick=()=>renderPilgrimageBuilder(wishItems);
+}
+function renderPilgrimageBuilder(items){
+  layout(`<section class="card profile-card">
+    <div class="profile-top"><button class="secondary back-profile" id="builderBack">← My Journey</button><span class="badge">Planner Preview</span></div>
+    <p class="eyebrow">COMING NEXT</p><h1 class="profile-title">Build My Pilgrimage</h1>
+    <p class="lead planner-lead">You've selected ${items.length} Gurdwara${items.length===1?'':'s'}. This is the foundation for your personal pilgrimage plan.</p>
+    <div class="planner-steps">
+      ${items.map((x,i)=>`<div class="planner-stop"><span>${i+1}</span><div><strong>${escapeHtml(x.name)}</strong><small>${escapeHtml(x.city)}, ${escapeHtml(x.country)}</small></div></div>`).join('')}
+    </div>
+    <div class="planner-next"><h2>Next planner features</h2><p>Starting city · travel dates · route order · travel distances · nearby Gurdwaras · accommodation · printable/PDF itinerary · share with family or a travel professional.</p></div>
+    <button class="primary" id="returnJourney">Return to My Journey</button>
+  </section>`);
+  document.getElementById('builderBack').onclick=renderMyJourney;
+  document.getElementById('returnJourney').onclick=renderMyJourney;
 }
 
 function startGame(){

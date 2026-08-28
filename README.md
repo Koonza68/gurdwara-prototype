@@ -1,20 +1,14 @@
-# Gurdwara Discovery — Prototype V0.4.1
+# Gurdwara Discovery — Prototype V0.5
 
-V0.4 is the photo-quality pass.
+## New in V0.5
+- Challenge results now show **correct answers out of 10** and **accuracy percentage**.
+- Adds a Gurdwara Map to the final results screen.
+- All 20 prototype locations have city-level latitude/longitude coordinates in the dataset.
+- Tap a map marker or location-list entry to see the Gurdwara name, location and discovered status.
+- Discovered locations use a different marker state.
+- Keeps the V0.4 curated-photo gameplay and cache-busting asset URLs.
 
-## Changes
-- Keeps the V0.3 name → four-photo gameplay.
-- Removes the Gurmukhi name from the guessing screen.
-- Replaces automatic Wikipedia summary thumbnails with one curated Wikimedia Commons photograph for each of the 20 prototype gurdwaras.
-- Keeps wrong-choice dimming, −25 point penalty, hidden name after a wrong choice, Sikh/history clue, then location clue.
-- Adds the correct Gurdwara photograph to the educational reveal.
-- Adds a Wikimedia Commons source link for the photograph.
+### Map note
+The V0.5 map is a lightweight schematic map designed to avoid adding a third-party mapping dependency during the prototype stage. Coordinates are used to place markers approximately. A later release can replace this with an interactive geographic map (for example OpenStreetMap/Leaflet) after we decide the desired travel/pilgrimage experience.
 
-## Important
-This remains prototype content. Historical claims and photo licensing/attribution should be formally reviewed before a public release.
-
-
-## V0.4.1 cache fix
-GitHub Pages/browser caching could mix JavaScript and data from older releases.
-Static asset URLs now include a release version query string so each deployment
-loads the current app, data, styles, and manifest.
+Historical content, coordinates and photo licensing should be formally reviewed before public release.

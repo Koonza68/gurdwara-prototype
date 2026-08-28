@@ -4,14 +4,14 @@ const TOTAL_ROUNDS = 10;
 
 let state = {
   screen:'home', rounds:[], roundIndex:0, score:0, streak:0, bestStreak:0,
-  attempt:1, hints:[], disabledIds:new Set()
+  attempt:1, hints:[], disabledIds:new Set(), correctCount:0, answeredCount:0
 };
 
 const discovered = new Set(JSON.parse(localStorage.getItem('gurdwara_discovered') || '[]'));
 
 function shuffle(arr){ return [...arr].sort(()=>Math.random()-.5); }
 function escapeHtml(s=''){ return String(s).replace(/[&<>'"]/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;' }[c])); }
-function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V0.4.1</div></div>${content}`; }
+function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V0.5</div></div>${content}`; }
 
 function renderHome(){
   layout(`<section class="card hero">
@@ -35,7 +35,7 @@ function startGame(){
     const others=shuffle(eligible.filter(x=>x.id!==correct.id)).slice(0,3);
     return {correct, options:shuffle([correct,...others])};
   });
-  state.roundIndex=0; state.score=0; state.streak=0; state.bestStreak=0;
+  state.roundIndex=0; state.score=0; state.streak=0; state.bestStreak=0; state.correctCount=0; state.answeredCount=0;
   beginRound();
 }
 function beginRound(){ state.attempt=1; state.hints=[]; state.disabledIds=new Set(); renderQuestion(); }
@@ -87,13 +87,13 @@ function answer(id){
     state.score+=earned;
     if(state.attempt===1){ state.streak++; state.bestStreak=Math.max(state.bestStreak,state.streak); }
     discovered.add(item.id); localStorage.setItem('gurdwara_discovered',JSON.stringify([...discovered]));
-    renderResult(true,item,earned); return;
+    state.correctCount++; state.answeredCount++; renderResult(true,item,earned); return;
   }
   state.score=Math.max(0,state.score-25);
   state.disabledIds.add(id);
   if(state.attempt===1) state.streak=0;
   if(state.attempt<3){ state.hints.push(buildHint(item,state.attempt)); state.attempt++; renderQuestion(); }
-  else { discovered.add(item.id); localStorage.setItem('gurdwara_discovered',JSON.stringify([...discovered])); renderResult(false,item,0); }
+  else { discovered.add(item.id); localStorage.setItem('gurdwara_discovered',JSON.stringify([...discovered])); state.answeredCount++; renderResult(false,item,0); }
 }
 
 function renderResult(correct,item,earned){
@@ -122,9 +122,46 @@ function renderResult(correct,item,earned){
 }
 
 function renderEnd(){
-  layout(`<section class="card hero"><div class="ik-onkar">ੴ</div><h2>Challenge Complete</h2><div class="end-score">${state.score}</div>
-    <p class="lead">Best first-try streak: <strong>${state.bestStreak}</strong><br>Prototype collection discovered: <strong>${discovered.size}/${data.length}</strong></p>
-    <div class="row"><button class="secondary" id="home">Home</button><button class="primary" id="again">Play Again</button></div></section>`);
-  document.getElementById('home').onclick=renderHome; document.getElementById('again').onclick=startGame;
+  const pct=Math.round((state.correctCount/TOTAL_ROUNDS)*100);
+  const markers=data.filter(x=>Number.isFinite(x.lat)&&Number.isFinite(x.lng)).map(x=>{
+    const left=((x.lng-68)/(88-68))*100;
+    const top=(1-((x.lat-18)/(35-18)))*100;
+    const found=discovered.has(x.id);
+    return `<button class="map-marker ${found?'found':''}" style="left:${Math.max(2,Math.min(98,left))}%;top:${Math.max(3,Math.min(97,top))}%"
+      title="${escapeHtml(x.name)} — ${escapeHtml(x.city)}, ${escapeHtml(x.country)}"
+      data-map-id="${x.id}"><span>●</span></button>`;
+  }).join('');
+
+  layout(`<section class="results-layout">
+    <div class="card results-card">
+      <div class="ik-onkar">ੴ</div><h2>Challenge Complete!</h2>
+      <div class="end-score">${state.score}</div><p class="score-label">Total Score</p>
+      <div class="results-stats">
+        <div class="result-stat"><strong>${state.correctCount}/${TOTAL_ROUNDS}</strong><span>Correct</span></div>
+        <div class="result-stat"><strong>${pct}%</strong><span>Accuracy</span></div>
+        <div class="result-stat"><strong>${state.bestStreak}</strong><span>Best Streak</span></div>
+      </div>
+      <div class="performance"><strong>🏆 Performance Summary</strong>
+        <p>You identified ${state.correctCount} of ${TOTAL_ROUNDS} Gurdwaras correctly.</p>
+        <p>Prototype collection discovered: <strong>${discovered.size}/${data.length}</strong></p>
+      </div>
+      <div class="row"><button class="secondary" id="home">Home</button><button class="primary" id="again">Play Again</button></div>
+    </div>
+    <div class="card map-card">
+      <div class="map-title"><h2>📍 Gurdwara Map</h2><p>Explore where the 20 prototype Gurdwaras are located.</p></div>
+      <div class="prototype-map">
+        <div class="map-land"></div>${markers}
+        <div class="map-label pakistan">Pakistan</div><div class="map-label india">India</div>
+      </div>
+      <div id="map-detail" class="map-detail">Tap a marker to see the Gurdwara and location. Green markers are already in your discovered collection.</div>
+      <div class="location-list">${data.map(x=>`<button class="location-item" data-map-id="${x.id}"><span>${discovered.has(x.id)?'✓':'●'}</span><div><strong>${escapeHtml(x.name)}</strong><small>${escapeHtml(x.city)}, ${escapeHtml(x.country)}</small></div></button>`).join('')}</div>
+    </div>
+  </section>`);
+  document.getElementById('home').onclick=renderHome;
+  document.getElementById('again').onclick=startGame;
+  document.querySelectorAll('[data-map-id]').forEach(el=>el.onclick=()=>{
+    const x=data.find(g=>g.id===Number(el.dataset.mapId));
+    document.getElementById('map-detail').innerHTML=`<strong>${escapeHtml(x.name)}</strong><br>${escapeHtml(x.city)}, ${escapeHtml(x.region)}, ${escapeHtml(x.country)} · ${discovered.has(x.id)?'✓ Discovered':'Not yet discovered'}`;
+  });
 }
 renderHome();

@@ -11,7 +11,7 @@ const discovered = new Set(JSON.parse(localStorage.getItem('gurdwara_discovered'
 
 function shuffle(arr){ return [...arr].sort(()=>Math.random()-.5); }
 function escapeHtml(s=''){ return String(s).replace(/[&<>'"]/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;' }[c])); }
-function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V0.4</div></div>${content}`; }
+function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V0.4.1</div></div>${content}`; }
 
 function renderHome(){
   layout(`<section class="card hero">

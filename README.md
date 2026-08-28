@@ -1,4 +1,4 @@
-# Gurdwara Discovery — Prototype V0.4
+# Gurdwara Discovery — Prototype V0.4.1
 
 V0.4 is the photo-quality pass.
 
@@ -12,3 +12,9 @@ V0.4 is the photo-quality pass.
 
 ## Important
 This remains prototype content. Historical claims and photo licensing/attribution should be formally reviewed before a public release.
+
+
+## V0.4.1 cache fix
+GitHub Pages/browser caching could mix JavaScript and data from older releases.
+Static asset URLs now include a release version query string so each deployment
+loads the current app, data, styles, and manifest.

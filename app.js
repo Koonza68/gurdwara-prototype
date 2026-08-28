@@ -1,3 +1,10 @@
+
+const APP_BUILD = "2026-08-27-2030";
+const APP_VERSION = "1.3.1";
+
+// Expose current build for easy troubleshooting.
+window.GURDWARA_BUILD = { version: APP_VERSION, build: APP_BUILD };
+
 const app = document.getElementById('app');
 const data = window.GURDWARAS;
 const TOTAL_ROUNDS = 10;
@@ -45,7 +52,7 @@ const PLACE_INFO = {
 
 function shuffle(arr){ return [...arr].sort(()=>Math.random()-.5); }
 function escapeHtml(s=''){ return String(s).replace(/[&<>'"]/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;' }[c])); }
-function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V1.3</div></div>${content}`; }
+function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V1.3.1</div></div>${content}`; }
 
 
 function saveJourneyState(){
@@ -265,7 +272,7 @@ function renderHome(){
     <button class="primary" id="start">Start Photo Challenge</button>
     <button class="journey-home-btn explore-home-btn" id="exploreGurdwaras">🏛️ Explore Gurdwaras <span>Browse all ${data.length}</span></button>
     <button class="journey-home-btn" id="myJourney">🧭 My Journey <span>${wantToVisit.size} Want to Visit</span></button>
-    <p class="small-note">Prototype V1.3 · Quiz, heritage profiles and personal pilgrimage planning.</p>
+    <p class="small-note">Prototype V1.3.1 · Quiz, heritage profiles and personal pilgrimage planning.</p>
   </section>`);
   document.getElementById('start').onclick=startGame;
   document.getElementById('exploreGurdwaras').onclick=()=>renderExplore();

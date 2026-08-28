@@ -1,4 +1,4 @@
-# Gurdwara Discovery — Prototype V1.3
+# Gurdwara Discovery — Prototype V1.3.1
 
 ## Pilgrimage Planner
 
@@ -118,3 +118,16 @@ Directory expanded to 50 locations. The new group broadens the world map beyond 
 The goal is deliberate geographic and historical variety: Guru-era pilgrimage sites, pioneer-era diaspora institutions and contemporary global Sikh community centres. Diaspora entries continue to use local/community significance rather than invented Guru associations.
 
 Prototype Wikimedia photo URLs should be visually verified before production.
+
+
+## V1.3.1 — GitHub Pages refresh fix
+
+This release adds stronger cache-busting so new deployments are easier to verify.
+
+- Asset URLs now include both the semantic version and a unique build ID.
+- Added no-cache meta directives to the page.
+- Added a persistent bottom-right build badge showing the exact live version/build.
+- Added `build-info.json` so the deployed build can be checked directly.
+- The browser should now need only a normal refresh after GitHub Pages finishes deploying.
+
+Current build: `2026-08-27-2030`.

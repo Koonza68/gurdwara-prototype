@@ -1,13 +1,22 @@
-# Gurdwara Discovery — Prototype V0.6
+# Gurdwara Discovery — Prototype V0.7
 
-## New in V0.6
-- Adds a map directly to every Gurdwara educational/reveal page.
-- Uses the latitude/longitude already stored in the prototype database.
-- Shows an embedded OpenStreetMap view centered on the individual Gurdwara.
-- Adds an **Open Full Map** button for a larger interactive map.
-- Keeps the V0.5 challenge-complete accuracy percentage and collection map.
-- Keeps cache-busting asset versioning for GitHub Pages.
+V0.7 introduces the **Gurdwara Profile & Journey layer**.
 
-### Prototype note
-Coordinates are currently approximate and should be individually verified before public release.
-Historical content and photo licensing/attribution should also be formally reviewed.
+## New
+- Full Gurdwara profile page behind the game.
+- Persistent **Visited** and **Want to Visit** buttons using local browser storage.
+- Discovery/history section with:
+  - Historical period / established date
+  - Significance to the Sikh Faith
+  - The Story
+  - Stories & Traditions
+  - Did You Know?
+  - Associated Gurus
+- Plan Your Visit section with the individual OpenStreetMap map.
+- Nearby Gurdwaras calculated from stored coordinates.
+- Placeholder area for researched pilgrimage and visitor information such as sarai/accommodation, langar, accessibility, transport and major events.
+- Results map markers can now open a Gurdwara profile.
+- Quiz answer reveal includes **Open Full Profile**.
+
+## Important
+Nearby distances and coordinates are prototype estimates. Visitor information, historical claims and all travel data must be verified before public release.

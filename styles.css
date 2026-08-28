@@ -120,3 +120,27 @@ p { line-height:1.55; }
 .map-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px}
 .map-link{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;white-space:nowrap;padding:10px 14px}
 @media(max-width:560px){.single-map{height:220px}.map-actions{align-items:stretch;flex-direction:column}.map-link{width:100%}}
+
+.profile-card{max-width:920px;margin:0 auto}
+.profile-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.back-profile{flex:0 0 auto;padding:9px 13px}
+.profile-title{font-size:clamp(1.9rem,5vw,3rem);margin:14px 0 7px}
+.journey-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
+.journey-btn{border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px 14px;font-weight:800;cursor:pointer}
+.journey-btn.active{background:#e8f2ed;border-color:#88ad9f;color:#235648}
+.profile-section{margin-top:22px;padding-top:8px;border-top:1px solid var(--line)}
+.profile-section>h2{margin-bottom:7px}
+.visit-note{margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:15px;background:#f7f1e5}
+.visit-note h3{margin:0 0 6px}.visit-note p{margin:0;color:var(--muted);line-height:1.5}
+.nearby-section{margin-top:17px}
+.nearby-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.nearby-card{text-align:left;border:1px solid var(--line);background:#fff;border-radius:13px;padding:12px;cursor:pointer;color:inherit}
+.nearby-card:hover{background:#f7f1e5}
+.nearby-card strong,.nearby-card span,.nearby-card small{display:block}
+.nearby-card span{font-size:.78rem;color:var(--muted);margin-top:3px}
+.nearby-card small{font-size:.72rem;color:var(--accent-2);margin-top:5px}
+.profile-footer{display:flex;gap:10px;margin-top:18px}
+.profile-footer>a{flex:1;text-align:center;text-decoration:none}
+.result-actions{margin-top:4px}
+.mini-profile-btn{margin-top:8px;border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 10px;cursor:pointer;font-weight:700}
+@media(max-width:560px){.journey-actions,.nearby-grid{grid-template-columns:1fr}.profile-footer{flex-direction:column}}

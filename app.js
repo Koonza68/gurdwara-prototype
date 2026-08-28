@@ -8,10 +8,111 @@ let state = {
 };
 
 const discovered = new Set(JSON.parse(localStorage.getItem('gurdwara_discovered') || '[]'));
+const visited = new Set(JSON.parse(localStorage.getItem('gurdwara_visited') || '[]'));
+const wantToVisit = new Set(JSON.parse(localStorage.getItem('gurdwara_want_to_visit') || '[]'));
+
 
 function shuffle(arr){ return [...arr].sort(()=>Math.random()-.5); }
 function escapeHtml(s=''){ return String(s).replace(/[&<>'"]/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;' }[c])); }
-function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V0.6</div></div>${content}`; }
+function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V0.7</div></div>${content}`; }
+
+
+function saveJourneyState(){
+  localStorage.setItem('gurdwara_visited', JSON.stringify([...visited]));
+  localStorage.setItem('gurdwara_want_to_visit', JSON.stringify([...wantToVisit]));
+}
+function toggleVisited(id){
+  if(visited.has(id)){ visited.delete(id); }
+  else { visited.add(id); wantToVisit.delete(id); }
+  saveJourneyState();
+}
+function toggleWantToVisit(id){
+  if(wantToVisit.has(id)){ wantToVisit.delete(id); }
+  else { wantToVisit.add(id); visited.delete(id); }
+  saveJourneyState();
+}
+function distanceKm(a,b){
+  const R=6371, toRad=d=>d*Math.PI/180;
+  const dLat=toRad(b.lat-a.lat), dLng=toRad(b.lng-a.lng);
+  const s=Math.sin(dLat/2)**2 + Math.cos(toRad(a.lat))*Math.cos(toRad(b.lat))*Math.sin(dLng/2)**2;
+  return 2*R*Math.asin(Math.sqrt(s));
+}
+function nearbyGurdwaras(item,limit=4){
+  if(!Number.isFinite(item.lat)||!Number.isFinite(item.lng)) return [];
+  return data.filter(x=>x.id!==item.id && Number.isFinite(x.lat)&&Number.isFinite(x.lng))
+    .map(x=>({item:x, km:distanceKm(item,x)}))
+    .sort((a,b)=>a.km-b.km).slice(0,limit);
+}
+function journeyStatus(item){
+  if(visited.has(item.id)) return 'Visited';
+  if(wantToVisit.has(item.id)) return 'Want to Visit';
+  return 'Not marked';
+}
+function renderJourneyButtons(item){
+  return `<div class="journey-actions">
+    <button class="journey-btn ${visited.has(item.id)?'active':''}" id="visitedBtn">🙏 ${visited.has(item.id)?'Visited ✓':'Mark Visited'}</button>
+    <button class="journey-btn ${wantToVisit.has(item.id)?'active':''}" id="wantBtn">🧭 ${wantToVisit.has(item.id)?'Want to Visit ✓':'Want to Visit'}</button>
+  </div>`;
+}
+function bindJourneyButtons(item, rerender){
+  const v=document.getElementById('visitedBtn'), w=document.getElementById('wantBtn');
+  if(v) v.onclick=()=>{toggleVisited(item.id); rerender();};
+  if(w) w.onclick=()=>{toggleWantToVisit(item.id); rerender();};
+}
+function renderProfile(item, returnMode='game'){
+  const nearby=nearbyGurdwaras(item);
+  const mapHtml=renderSingleGurdwaraMap(item);
+  layout(`<section class="card profile-card">
+    <div class="profile-top">
+      <button class="secondary back-profile" id="profileBack">${returnMode==='results'?'← Results':'← Back'}</button>
+      <span class="badge">${journeyStatus(item)}</span>
+    </div>
+    <div class="reveal-photo"><img src="${item.imageUrl}" alt="${escapeHtml(item.name)}"></div>
+    <h1 class="profile-title">${escapeHtml(item.name)}</h1>
+    <p class="location">${escapeHtml(item.punjabi)}<br>${escapeHtml(item.city)}, ${escapeHtml(item.region)}, ${escapeHtml(item.country)}</p>
+    ${renderJourneyButtons(item)}
+    <div class="tag-row">${item.values.map(v=>`<span class="tag">${escapeHtml(v)}</span>`).join('')}<span class="tag">${escapeHtml(item.difficulty)}</span></div>
+    <div class="profile-section">
+      <h2>Discover</h2>
+      <div class="info-grid">
+        <div class="info"><h3>📅 Historical Period / Established</h3><p><strong>${escapeHtml(item.historicalPeriod)}</strong><br>${escapeHtml(item.established)}</p></div>
+        <div class="info"><h3>ੴ Significance to the Sikh Faith</h3><p>${escapeHtml(item.significance)}</p></div>
+        <div class="info"><h3>📖 The Story</h3><p>${escapeHtml(item.story)}</p></div>
+        <div class="info"><h3>✨ Stories & Traditions</h3><p>${escapeHtml(item.traditions)}</p></div>
+        <div class="info"><h3>💡 Did You Know?</h3><p>${escapeHtml(item.didYouKnow)}</p></div>
+        <div class="info"><h3>👤 Associated Guru(s)</h3><p>${item.gurus.map(escapeHtml).join(', ')}</p></div>
+      </div>
+    </div>
+    <div class="profile-section">
+      <h2>Plan Your Visit</h2>
+      ${mapHtml}
+      <div class="visit-note">
+        <h3>🙏 Pilgrimage & Visitor Information</h3>
+        <p>Visitor details, sarai/accommodation, langar information, accessibility, transport, major events and verified travel notes will be added as this profile is researched.</p>
+      </div>
+      <div class="nearby-section">
+        <h3>🏛️ Nearby Gurdwaras</h3>
+        <div class="nearby-grid">
+          ${nearby.map(n=>`<button class="nearby-card" data-profile-id="${n.item.id}">
+            <strong>${escapeHtml(n.item.name)}</strong>
+            <span>${escapeHtml(n.item.city)}, ${escapeHtml(n.item.country)}</span>
+            <small>Approx. ${Math.round(n.km)} km away</small>
+          </button>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="profile-footer">
+      <a class="secondary" href="${item.source}" target="_blank" rel="noopener">View History Source</a>
+      <a class="secondary" href="${item.imagePage}" target="_blank" rel="noopener">Photo Source</a>
+    </div>
+  </section>`);
+  document.getElementById('profileBack').onclick=()=> returnMode==='results' ? renderEnd() : renderHome();
+  bindJourneyButtons(item,()=>renderProfile(item,returnMode));
+  document.querySelectorAll('[data-profile-id]').forEach(el=>el.onclick=()=>{
+    const next=data.find(x=>x.id===Number(el.dataset.profileId));
+    if(next) renderProfile(next, returnMode);
+  });
+}
 
 function renderHome(){
   layout(`<section class="card hero">
@@ -132,11 +233,12 @@ function renderResult(correct,item,earned){
     </div>
     <div class="discovered">🏛️ <strong>Added to your discovered collection.</strong><br><span class="small-note">${discovered.size} of ${data.length} prototype gurdwaras discovered.</span></div>
     <p class="photo-source"><a href="${item.imagePage}" target="_blank" rel="noopener">Prototype photo source: Wikimedia Commons</a></p>
-    <div class="row">
-      <a class="secondary" href="${item.source}" target="_blank" rel="noopener" style="text-align:center;text-decoration:none">View History Source</a>
+    <div class="row result-actions">
+      <button class="secondary" id="profileBtn">Open Full Profile</button>
       <button class="primary" id="next">${state.roundIndex===TOTAL_ROUNDS-1?'See Results':'Next Gurdwara'}</button>
     </div>
   </section>`);
+  document.getElementById('profileBtn').onclick=()=>renderProfile(item,'game');
   document.getElementById('next').onclick=()=>{ if(state.roundIndex===TOTAL_ROUNDS-1) renderEnd(); else {state.roundIndex++;beginRound();} };
 }
 
@@ -180,7 +282,8 @@ function renderEnd(){
   document.getElementById('again').onclick=startGame;
   document.querySelectorAll('[data-map-id]').forEach(el=>el.onclick=()=>{
     const x=data.find(g=>g.id===Number(el.dataset.mapId));
-    document.getElementById('map-detail').innerHTML=`<strong>${escapeHtml(x.name)}</strong><br>${escapeHtml(x.city)}, ${escapeHtml(x.region)}, ${escapeHtml(x.country)} · ${discovered.has(x.id)?'✓ Discovered':'Not yet discovered'}`;
+    document.getElementById('map-detail').innerHTML=`<strong>${escapeHtml(x.name)}</strong><br>${escapeHtml(x.city)}, ${escapeHtml(x.region)}, ${escapeHtml(x.country)} · ${discovered.has(x.id)?'✓ Discovered':'Not yet discovered'}<br><button class="mini-profile-btn" id="openProfileFromMap">Open Profile</button>`;
+    document.getElementById('openProfileFromMap').onclick=()=>renderProfile(x,'results');
   });
 }
 renderHome();

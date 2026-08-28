@@ -1,15 +1,14 @@
-# Gurdwara Discovery — Prototype V0.3
+# Gurdwara Discovery — Prototype V0.4
 
-A mobile-first static web prototype for an educational Sikh gurdwara identification game.
+V0.4 is the photo-quality pass.
 
-## V0.3 gameplay
-- The Gurdwara name is shown first.
-- The player chooses the correct image from a 2×2 grid of four Gurdwaras.
-- A wrong image is dimmed/disabled and costs 25 points.
-- After the first wrong choice, the Gurdwara name is removed and replaced by a Sikh/history clue.
-- After the second wrong choice, the name remains hidden and a location clue appears.
-- Three total attempts.
-- Correct-answer value declines from 100 → 75 → 50.
-- The educational reveal includes Significance to the Sikh Faith, The Story, Stories & Traditions, Did You Know?, associated Gurus and Sikh values.
+## Changes
+- Keeps the V0.3 name → four-photo gameplay.
+- Removes the Gurmukhi name from the guessing screen.
+- Replaces automatic Wikipedia summary thumbnails with one curated Wikimedia Commons photograph for each of the 20 prototype gurdwaras.
+- Keeps wrong-choice dimming, −25 point penalty, hidden name after a wrong choice, Sikh/history clue, then location clue.
+- Adds the correct Gurdwara photograph to the educational reveal.
+- Adds a Wikimedia Commons source link for the photograph.
 
-Historical text and automatically retrieved Wikipedia images remain prototype content and should be formally reviewed/licensed before public release.
+## Important
+This remains prototype content. Historical claims and photo licensing/attribution should be formally reviewed before a public release.

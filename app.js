@@ -45,7 +45,7 @@ const PLACE_INFO = {
 
 function shuffle(arr){ return [...arr].sort(()=>Math.random()-.5); }
 function escapeHtml(s=''){ return String(s).replace(/[&<>'"]/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;' }[c])); }
-function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V0.9</div></div>${content}`; }
+function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V0.9.1</div></div>${content}`; }
 
 
 function saveJourneyState(){
@@ -260,7 +260,7 @@ function renderHome(){
     </div>
     <button class="primary" id="start">Start Photo Challenge</button>
     <button class="journey-home-btn" id="myJourney">🧭 My Journey <span>${wantToVisit.size} Want to Visit</span></button>
-    <p class="small-note">Prototype V0.9 · Quiz, heritage profiles and personal pilgrimage planning.</p>
+    <p class="small-note">Prototype V0.9.1 · Quiz, heritage profiles and personal pilgrimage planning.</p>
   </section>`);
   document.getElementById('start').onclick=startGame;
   document.getElementById('myJourney').onclick=renderMyJourney;
@@ -359,7 +359,7 @@ function renderQuestion(){
   const clue=state.hints[state.hints.length-1];
   const prompt=state.attempt===1
     ? `<div class="name-prompt"><span>Find this Gurdwara</span><h2>${escapeHtml(round.correct.name)}</h2></div>`
-    : `<div class="name-prompt clue-prompt"><span>The name is now hidden — use this clue</span><h2>${escapeHtml(clue.type)}</h2><p>${escapeHtml(clue.text)}</p></div>`;
+    : `<div class="name-prompt clue-prompt"><span>Find this Gurdwara</span><h2>${escapeHtml(round.correct.name)}</h2><div class="clue-divider"></div><h3>${escapeHtml(clue.type)}</h3><p>${escapeHtml(clue.text)}</p></div>`;
 
   layout(`<section class="card">
     <div class="stats">

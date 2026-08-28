@@ -206,3 +206,8 @@ p { line-height:1.55; }
 .planner-stop>span{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#2e6658;color:#fff;font-weight:800}.planner-stop strong,.planner-stop small{display:block}.planner-stop small{color:var(--muted);margin-top:2px}
 .planner-next{background:#f7f1e5;border:1px solid var(--line);border-radius:16px;padding:16px;margin:18px 0}.planner-next h2{margin-top:0}.planner-next p{margin-bottom:0;line-height:1.6;color:var(--muted)}
 @media(max-width:700px){.journey-stats{grid-template-columns:1fr 1fr}.journey-columns{grid-template-columns:1fr}.journey-list{grid-template-columns:1fr}.section-heading{flex-direction:column}.small-primary{width:100%}}
+
+.clue-prompt h2{margin-bottom:10px}
+.clue-prompt h3{margin:9px 0 5px;font-size:1rem;color:var(--accent-2)}
+.clue-divider{height:1px;background:var(--line);max-width:360px;margin:9px auto}
+.clue-prompt p{margin:0 auto;max-width:620px}

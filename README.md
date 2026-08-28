@@ -1,4 +1,4 @@
-# Gurdwara Discovery — Prototype V0.9
+# Gurdwara Discovery — Prototype V0.9.1
 
 ## My Journey
 
@@ -18,3 +18,9 @@ V0.9 introduces a personal heritage journey dashboard using the Visited, Want to
 Starting city, dates, itinerary ordering, travel distances, nearby Gurdwaras, accommodation/travel information, printable/PDF pilgrimage plan, family sharing and a future travel-professional handoff.
 
 This version continues to use browser localStorage. User accounts/cloud syncing will be considered later.
+
+
+## V0.9.1 gameplay adjustment
+The Gurdwara name now remains visible after an incorrect photo selection.
+Clues are added beneath the name on attempts 2 and 3 instead of replacing it.
+Wrong photographs remain eliminated, and scoring remains 100 / 75 / 50.

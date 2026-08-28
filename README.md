@@ -1,4 +1,4 @@
-# Gurdwara Discovery — Prototype V1.1
+# Gurdwara Discovery — Prototype V1.3
 
 ## Pilgrimage Planner
 
@@ -89,7 +89,7 @@ The OpenStreetMap iframe could show the real geography but not multiple custom m
 - Airport codes are preserved in the itinerary display to prepare for later live airfare search.
 
 
-## V1.1 Explore Gurdwaras
+## V1.3 Explore Gurdwaras
 - New **Explore Gurdwaras** entry on the home screen.
 - Search by Gurdwara name, city, Guru or region.
 - Filter by region/country, associated Guru, Visited, Want to Visit or Discovered.
@@ -100,3 +100,21 @@ The OpenStreetMap iframe could show the real geography but not multiple custom m
 - Gurdwara profiles return naturally to Explore when opened from the directory.
 
 The core app navigation is now Play → Explore → My Journey.
+
+
+## V1.3 Going Global
+Expanded the prototype directory from 20 to 36 Gurdwaras, adding major Sikh heritage and diaspora locations in Pakistan, the United Kingdom, Canada and the United States.
+
+New entries include Nankana Sahib, Kartarpur Sahib, Panja Sahib, Dera Sahib Lahore, Southall, Gravesend, Smethwick, Abbotsford Gur Sikh Temple, Vancouver KDS, Victoria KDS, Stockton, San Jose and additional Canadian/U.S. diaspora institutions.
+
+Historic Guru-era shrines use faith/history significance. Diaspora profiles deliberately emphasize local Sikh history, migration, community development, seva and regional importance rather than inventing Guru connections.
+
+Photo URLs remain Wikimedia Commons prototype references and should be visually/rights verified before a production release.
+
+
+## V1.3 — 50 Gurdwaras
+Directory expanded to 50 locations. The new group broadens the world map beyond India/Pakistan/UK/Canada/US to Singapore, Malaysia, Hong Kong, Australia, Kenya, New Zealand and the UAE, while adding two more regional Indian pilgrimage sites.
+
+The goal is deliberate geographic and historical variety: Guru-era pilgrimage sites, pioneer-era diaspora institutions and contemporary global Sikh community centres. Diaspora entries continue to use local/community significance rather than invented Guru associations.
+
+Prototype Wikimedia photo URLs should be visually verified before production.

@@ -179,4 +179,280 @@ window.GURDWARAS = [
     didYouKnow: "Manikaran is also important to Hindu pilgrims, making it an interesting example of a shared sacred landscape.",
     values: ["Hospitality","Faith","Shared Heritage"], difficulty: "Medium", source: "https://en.wikipedia.org/wiki/Manikaran"
   }
+
+,
+  {
+    id: 21, lat: 31.4492, lng: 73.7063, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Gurdwara%20Janam%20Asthan%20Nankana%20Sahib.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Gurdwara_Janam_Asthan", name: "Gurdwara Janam Asthan", punjabi: "ਗੁਰਦੁਆਰਾ ਜਨਮ ਅਸਥਾਨ", city: "Nankana Sahib", region: "Punjab", country: "Pakistan",
+    wikiTitle: "Gurdwara_Janam_Asthan", historicalPeriod: "Guru Nanak's birthplace; shrine developed over later centuries", established: "Historic shrine at the birthplace of Guru Nanak; major rebuilding in the Sikh Empire period",
+    gurus: ["Guru Nanak"], significance: "One of Sikhism's most important pilgrimage sites, marking the birthplace of Guru Nanak.",
+    story: "Nankana Sahib, formerly Rai Bhoi di Talwandi, is revered as the birthplace of Guru Nanak. The town became a major Sikh pilgrimage centre and the site was also central to the 1921 Gurdwara Reform movement.",
+    traditions: "Stories associated with Guru Nanak's childhood are preserved across several historic shrines in and around Nankana Sahib.",
+    didYouKnow: "The city itself is named in honour of Guru Nanak and attracts Sikh pilgrims from around the world.",
+    values: ["Origins","Devotion","Heritage"], difficulty: "Medium", source: "https://nankana.punjab.gov.pk/our_history"
+  },
+  {
+    id: 22, lat: 32.0505, lng: 75.0178, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Gurdwara%20Darbar%20Sahib%20Kartarpur.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Gurdwara_Darbar_Sahib_Kartarpur", name: "Gurdwara Darbar Sahib Kartarpur", punjabi: "ਗੁਰਦੁਆਰਾ ਦਰਬਾਰ ਸਾਹਿਬ ਕਰਤਾਰਪੁਰ", city: "Kartarpur", region: "Punjab", country: "Pakistan",
+    wikiTitle: "Gurdwara_Darbar_Sahib_Kartarpur", historicalPeriod: "Early Sikh period", established: "Associated with Guru Nanak's settlement at Kartarpur from the early 16th century",
+    gurus: ["Guru Nanak"], significance: "Kartarpur is where Guru Nanak settled after his travels, formed a community and spent the final years of his life.",
+    story: "Guru Nanak established a community at Kartarpur on the Ravi, living the principles of devotion, honest work and sharing. The site is closely associated with the closing chapter of his earthly life.",
+    traditions: "Tradition remembers followers from different religious backgrounds gathering around Guru Nanak at Kartarpur.",
+    didYouKnow: "The Kartarpur Corridor provides direct pilgrimage access from India to the shrine in Pakistan.",
+    values: ["Community","Service","Equality"], difficulty: "Medium", source: "https://gurdwaradarbarsahibkartarpur.com/history/"
+  },
+  {
+    id: 23, lat: 33.8208, lng: 72.6897, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Panja%20Sahib%20Gurdwara.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Gurdwara_Panja_Sahib", name: "Gurdwara Panja Sahib", punjabi: "ਗੁਰਦੁਆਰਾ ਪੰਜਾ ਸਾਹਿਬ", city: "Hasan Abdal", region: "Punjab", country: "Pakistan",
+    wikiTitle: "Gurdwara_Panja_Sahib", historicalPeriod: "Associated with Guru Nanak's travels", established: "Historic site; major shrine developed during the Sikh Empire",
+    gurus: ["Guru Nanak"], significance: "A major Sikh pilgrimage site associated with Guru Nanak and the sacred handprint tradition.",
+    story: "Sikh tradition connects Guru Nanak's visit to Hasan Abdal with a spring and a boulder bearing a hand impression. Later Sikh rulers developed the site into a major gurdwara.",
+    traditions: "The well-known Panja Sahib tradition tells of Guru Nanak stopping a rolling boulder with his hand, leaving an impression in the stone.",
+    didYouKnow: "Pakistan's Department of Archaeology records the site and its association with Guru Nanak's 1521 visit.",
+    values: ["Faith","Compassion","Courage"], difficulty: "Medium", source: "https://doam.gov.pk/public/sites/7658"
+  },
+  {
+    id: 24, lat: 31.5898, lng: 74.3118, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Gurdwara%20Dera%20Sahib%20Lahore.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Gurdwara_Dera_Sahib", name: "Gurdwara Dera Sahib", punjabi: "ਗੁਰਦੁਆਰਾ ਡੇਹਰਾ ਸਾਹਿਬ", city: "Lahore", region: "Punjab", country: "Pakistan",
+    wikiTitle: "Gurdwara_Dera_Sahib", historicalPeriod: "Early 17th century", established: "Memorial associated with the martyrdom of Guru Arjan in 1606",
+    gurus: ["Guru Arjan","Guru Hargobind"], significance: "Marks the place associated with the martyrdom of Guru Arjan, the fifth Sikh Guru.",
+    story: "Guru Arjan was martyred in Lahore in 1606. Sikh tradition associates Dera Sahib, near the Ravi and Lahore Fort, with the final events of his life; Guru Hargobind later established a memorial.",
+    traditions: "The site is deeply connected with Sikh remembrance of Guru Arjan's steadfastness and acceptance in the face of persecution.",
+    didYouKnow: "The gurdwara stands beside several of Lahore's major historic monuments, including the Badshahi Mosque and Lahore Fort.",
+    values: ["Sacrifice","Faith","Resilience"], difficulty: "Hard", source: "https://en.wikipedia.org/wiki/Gurdwara_Dera_Sahib"
+  },
+  {
+    id: 25, lat: 51.5079, lng: -0.3763, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Sri%20Guru%20Singh%20Sabha%20Southall.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Gurdwaras_in_London", name: "Sri Guru Singh Sabha Southall", punjabi: "ਸ੍ਰੀ ਗੁਰੂ ਸਿੰਘ ਸਭਾ ਸਾਊਥਾਲ", city: "Southall", region: "Greater London", country: "United Kingdom",
+    wikiTitle: "Gurdwara_Sri_Guru_Singh_Sabha_Southall", historicalPeriod: "Post-war Sikh migration to Britain", established: "Organisation traces its history to 1958; first Gurdwara opened in 1964",
+    gurus: [], significance: "A major centre of British Sikh religious, cultural and community life, reflecting the growth of the Sikh diaspora in West London.",
+    story: "Sikhs arriving in Southall initially worshipped in homes and hired halls. Growing congregations led to formal organisation and the opening of a Gurdwara, creating an enduring centre for British Sikh life.",
+    traditions: "Its story represents the way diaspora Sangat created institutions for worship, Punjabi education, langar and community support.",
+    didYouKnow: "Southall became one of the best-known centres of Sikh and Punjabi life in Britain.",
+    values: ["Diaspora","Community","Seva"], difficulty: "Hard", source: "https://sgsss.org/pa/history"
+  },
+  {
+    id: 26, lat: 51.4354, lng: 0.3815, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Guru%20Nanak%20Darbar%20Gurdwara%20Gravesend.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Guru_Nanak_Darbar_Gurdwara,_Gravesend", name: "Guru Nanak Darbar Gurdwara", punjabi: "ਗੁਰੂ ਨਾਨਕ ਦਰਬਾਰ ਗੁਰਦੁਆਰਾ", city: "Gravesend", region: "Kent", country: "United Kingdom",
+    wikiTitle: "Guru_Nanak_Darbar_Gurdwara", historicalPeriod: "Modern British Sikh community", established: "Current landmark complex opened in 2010",
+    gurus: [], significance: "A prominent British Sikh institution and landmark reflecting the growth and confidence of the Sikh community in Kent.",
+    story: "Gravesend's Sikh community first gathered in homes, later worshipped at Clarence Place, and eventually built a major purpose-designed Gurdwara complex funded by the local community.",
+    traditions: "The Gurdwara's development reflects generations of local seva and the desire to combine Sikh architectural identity with modern community facilities.",
+    didYouKnow: "The local Sikh community's roots in Gravesend date to the 1950s, with substantial growth during the 1960s.",
+    values: ["Community","Seva","Diaspora"], difficulty: "Hard", source: "https://www.gurunanakdarbar.org/history"
+  },
+  {
+    id: 27, lat: 52.4932, lng: -1.9724, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Guru%20Nanak%20Gurdwara%20Smethwick.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Guru_Nanak_Gurdwara_Smethwick", name: "Guru Nanak Gurdwara Smethwick", punjabi: "ਗੁਰੂ ਨਾਨਕ ਗੁਰਦੁਆਰਾ ਸਮੈਦਿਕ", city: "Smethwick", region: "West Midlands", country: "United Kingdom",
+    wikiTitle: "Guru_Nanak_Gurdwara_Smethwick", historicalPeriod: "Post-war Sikh settlement in the Midlands", established: "Community established in the late 1950s",
+    gurus: [], significance: "An important centre of Sikh life in the West Midlands and a landmark in the history of Britain's Sikh diaspora.",
+    story: "The Gurdwara grew with Sikh migration to the industrial West Midlands, becoming a major place of worship and community organisation in Smethwick.",
+    traditions: "Community commemorations, langar, education and public remembrance connect the Gurdwara with both Sikh heritage and the wider history of Britain.",
+    didYouKnow: "The Smethwick Sikh community has become one of the most established Sikh communities in Britain.",
+    values: ["Diaspora","Service","Belonging"], difficulty: "Hard", source: "https://historicengland.org.uk/campaigns/100-places/faith-belief/canterbury-greensted-guru-nanak-gurdwara/"
+  },
+  {
+    id: 28, lat: 49.0576, lng: -122.3074, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Gur%20Sikh%20Temple%20Abbotsford.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Gur_Sikh_Temple", name: "Gur Sikh Temple", punjabi: "ਗੁਰ ਸਿੱਖ ਟੈਂਪਲ", city: "Abbotsford", region: "British Columbia", country: "Canada",
+    wikiTitle: "Gur_Sikh_Temple", historicalPeriod: "Early Sikh settlement in Canada", established: "Built 1910–1912; opened to the Sangat in the early 1910s",
+    gurus: [], significance: "Canada's oldest surviving Gurdwara and a National Historic Site, representing the resilience of early Sikh settlers in British Columbia.",
+    story: "Sikh pioneers in the Fraser Valley built the temple through community labour while many worked in lumber and agriculture. It became a religious, social and political centre for early South Asian settlers.",
+    traditions: "The building itself is a living link to pioneer-era Sikh seva, with community members carrying lumber and contributing labour and wages to establish a permanent spiritual home.",
+    didYouKnow: "Parks Canada designated the Abbotsford Sikh Temple a National Historic Site in 2002.",
+    values: ["Pioneers","Seva","Resilience"], difficulty: "Medium", source: "https://parks.canada.ca/culture/designation/lieu-site/temple-sikh-abbotsford-sikh-temple"
+  },
+  {
+    id: 29, lat: 49.2108, lng: -123.0904, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Khalsa%20Diwan%20Society%20Vancouver.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Khalsa_Diwan_Society_Vancouver", name: "Khalsa Diwan Society Vancouver", punjabi: "ਖ਼ਾਲਸਾ ਦੀਵਾਨ ਸੋਸਾਇਟੀ ਵੈਨਕੂਵਰ", city: "Vancouver", region: "British Columbia", country: "Canada",
+    wikiTitle: "Khalsa_Diwan_Society_Vancouver", historicalPeriod: "Early 20th-century Sikh Canada", established: "Society established 1906; first Vancouver Gurdwara opened in 1908",
+    gurus: [], significance: "A foundational institution in Sikh Canadian history and a centre of early South Asian religious, social and political life in British Columbia.",
+    story: "The Khalsa Diwan Society was organised by early Sikh settlers in Vancouver. Its first Gurdwara on West 2nd Avenue became a gathering place for worship, mutual aid and community organisation; the society later relocated to Ross Street.",
+    traditions: "Its history includes langar, shelter for newcomers and collective advocacy during some of the most difficult periods faced by early South Asian Canadians.",
+    didYouKnow: "The original West 2nd Avenue Gurdwara site is recognized for its heritage value in British Columbia.",
+    values: ["Pioneers","Community","Justice"], difficulty: "Hard", source: "https://canadiansikhheritage.ca/khalsa-diwan-society/"
+  },
+  {
+    id: 30, lat: 48.4474, lng: -123.3606, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Khalsa%20Diwan%20Society%20Victoria.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Gurdwaras_in_British_Columbia", name: "Khalsa Diwan Society Victoria", punjabi: "ਖ਼ਾਲਸਾ ਦੀਵਾਨ ਸੋਸਾਇਟੀ ਵਿਕਟੋਰੀਆ", city: "Victoria", region: "British Columbia", country: "Canada",
+    wikiTitle: "", historicalPeriod: "Early Sikh settlement on Vancouver Island", established: "Established in 1912",
+    gurus: [], significance: "One of the oldest Sikh community institutions in North America and an important link to early Sikh settlement on Vancouver Island.",
+    story: "The Victoria Gurdwara grew from the early Sikh presence in British Columbia and became a lasting religious and community institution for Sikhs on Vancouver Island.",
+    traditions: "Generations of Sangat have maintained daily worship, langar and community service while preserving the history of Sikh settlement in Victoria.",
+    didYouKnow: "The Khalsa Diwan Society of Victoria dates its establishment to 1912.",
+    values: ["Heritage","Community","Seva"], difficulty: "Hard", source: "https://www.kdsvictoria.org/"
+  },
+  {
+    id: 31, lat: 37.9364, lng: -121.2915, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Stockton%20Sikh%20Temple.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Sikhism_in_California", name: "Stockton Gurdwara Sahib", punjabi: "ਸਟਾਕਟਨ ਗੁਰਦੁਆਰਾ ਸਾਹਿਬ", city: "Stockton", region: "California", country: "United States",
+    wikiTitle: "", historicalPeriod: "Early Sikh settlement in the United States", established: "Land purchased in 1912 for the Gurdwara",
+    gurus: [], significance: "The first Gurdwara in the United States and a major institution in Sikh American and wider South Asian American history.",
+    story: "Sikhs across California organised a religious centre in Stockton in the early 1910s. It became a spiritual home, community resource and important centre connected with the Ghadar movement.",
+    traditions: "The Gurdwara's langar, hospitality and support for immigrants and students made it far more than a place of worship for early South Asian settlers.",
+    didYouKnow: "For decades, Stockton was the only Gurdwara in the United States.",
+    values: ["Pioneers","Freedom","Community"], difficulty: "Medium", source: "https://www.stocktongurdwara.org/history"
+  },
+  {
+    id: 32, lat: 37.2523, lng: -121.8417, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Sikh%20Gurdwara%20San%20Jose.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Sikhism_in_California", name: "Sikh Gurdwara San Jose", punjabi: "ਸਿੱਖ ਗੁਰਦੁਆਰਾ ਸੈਨ ਹੋਜ਼ੇ", city: "San Jose", region: "California", country: "United States",
+    wikiTitle: "", historicalPeriod: "Modern Sikh American community", established: "Modern Bay Area Sikh institution",
+    gurus: [], significance: "A major centre serving the large Sikh community of Silicon Valley and the San Francisco Bay Area.",
+    story: "The Gurdwara reflects the growth of Sikh communities in Northern California in the late 20th and early 21st centuries, serving religious, educational and community needs.",
+    traditions: "Its significance is rooted primarily in contemporary Sangat, seva, Punjabi education and the development of Sikh American community life.",
+    didYouKnow: "Northern California has one of the longest histories of Sikh settlement in the United States.",
+    values: ["Diaspora","Education","Seva"], difficulty: "Hard", source: "https://www.sikhgurdwarasj.org/"
+  },
+  {
+    id: 33, lat: 43.7315, lng: -79.6410, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Ontario%20Khalsa%20Darbar.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Sikhism_in_Ontario", name: "Ontario Khalsa Darbar", punjabi: "ਓਨਟਾਰੀਓ ਖ਼ਾਲਸਾ ਦਰਬਾਰ", city: "Mississauga", region: "Ontario", country: "Canada",
+    wikiTitle: "Ontario_Khalsa_Darbar", historicalPeriod: "Modern Sikh Canada", established: "Major contemporary Gurdwara serving the Greater Toronto Area",
+    gurus: [], significance: "A major centre of Sikh worship and community life in the Greater Toronto Area, representing the scale and diversity of modern Sikh Canada.",
+    story: "Ontario's Sikh population grew rapidly through post-war immigration. Large Gurdwaras such as Ontario Khalsa Darbar became centres for worship, langar, education, community events and civic engagement.",
+    traditions: "Its importance lies in living diaspora practice: large Sangat gatherings, seva, Nagar Kirtan participation and support for successive generations of Sikh Canadians.",
+    didYouKnow: "The Greater Toronto Area is home to one of the largest Sikh populations outside South Asia.",
+    values: ["Community","Diaspora","Seva"], difficulty: "Hard", source: "https://ontariokhalsadarbar.ca/"
+  },
+  {
+    id: 34, lat: 49.1865, lng: -122.8490, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Gurdwara%20Dukh%20Nivaran%20Sahib%20Surrey.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Sikhism_in_Surrey,_British_Columbia", name: "Gurdwara Dukh Nivaran Sahib Surrey", punjabi: "ਗੁਰਦੁਆਰਾ ਦੁੱਖ ਨਿਵਾਰਨ ਸਾਹਿਬ ਸਰੀ", city: "Surrey", region: "British Columbia", country: "Canada",
+    wikiTitle: "", historicalPeriod: "Modern Sikh Canada", established: "Contemporary Lower Mainland Gurdwara",
+    gurus: [], significance: "A prominent Gurdwara serving Surrey's large Sikh community, significant for contemporary religious life, seva and community development.",
+    story: "Surrey became one of Canada's largest centres of Sikh population. Its Gurdwaras reflect the transition from pioneer settlement to a large, multigenerational Sikh Canadian community.",
+    traditions: "The Gurdwara's significance is centred on worship, langar, charitable service, education and the everyday religious life of the local Sangat.",
+    didYouKnow: "Surrey and neighbouring Lower Mainland communities form one of the most significant Sikh population centres in Canada.",
+    values: ["Community","Seva","Belonging"], difficulty: "Hard", source: "https://www.dukhnivaran.ca/"
+  },
+  {
+    id: 35, lat: 40.7157, lng: -74.2216, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Gurdwara%20Singh%20Sabha%20New%20Jersey.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Sikhism_in_New_Jersey", name: "Gurdwara Singh Sabha New Jersey", punjabi: "ਗੁਰਦੁਆਰਾ ਸਿੰਘ ਸਭਾ ਨਿਊ ਜਰਸੀ", city: "Carteret", region: "New Jersey", country: "United States",
+    wikiTitle: "", historicalPeriod: "Modern Sikh American community", established: "Contemporary Sikh diaspora institution",
+    gurus: [], significance: "Represents the growth of Sikh community institutions in the New York–New Jersey metropolitan region.",
+    story: "As Sikh families established themselves across the northeastern United States, Gurdwaras became essential centres for worship, Punjabi language, youth activities, langar and community support.",
+    traditions: "The Gurdwara's story is primarily one of diaspora institution-building and sustaining Sikh practice across generations.",
+    didYouKnow: "The New York–New Jersey region is an important centre of Sikh American community life.",
+    values: ["Diaspora","Education","Community"], difficulty: "Hard", source: "https://en.wikipedia.org/wiki/Sikhism_in_the_United_States"
+  },
+  {
+    id: 36, lat: 42.3573, lng: -83.1852, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Sikh%20Gurdwara%20Michigan.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Sikhism_in_the_United_States", name: "Sikh Gurdwara of Michigan", punjabi: "ਸਿੱਖ ਗੁਰਦੁਆਰਾ ਆਫ਼ ਮਿਸ਼ੀਗਨ", city: "Plymouth", region: "Michigan", country: "United States",
+    wikiTitle: "", historicalPeriod: "Modern Sikh American community", established: "Contemporary Midwest Sikh institution",
+    gurus: [], significance: "Represents Sikh community development in the American Midwest and the role of Gurdwaras as religious and cultural anchors.",
+    story: "Sikh communities across the American Midwest established Gurdwaras to support worship, langar, Punjabi education and community connections far from Punjab.",
+    traditions: "Its significance is local and regional: sustaining Sikh identity, seva and Sangat for families across generations.",
+    didYouKnow: "The global Gurdwara story includes not only historic Guru-era shrines but also diaspora institutions built by local Sangat.",
+    values: ["Diaspora","Community","Identity"], difficulty: "Hard", source: "https://en.wikipedia.org/wiki/Sikhism_in_the_United_States"
+  }
+
+
+,
+  {
+    id: 37, lat: 22.2770, lng: 114.1730, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Khalsa%20Diwan%20Sikh%20Temple%20Hong%20Kong.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Sikhism_in_Hong_Kong", name: "Khalsa Diwan Sikh Temple", punjabi: "ਖ਼ਾਲਸਾ ਦੀਵਾਨ ਸਿੱਖ ਟੈਂਪਲ", city: "Hong Kong", region: "Wan Chai", country: "Hong Kong",
+    wikiTitle: "", historicalPeriod: "Early overseas Sikh diaspora", established: "Established in 1901",
+    gurus: [], significance: "One of the earliest overseas Sikh institutions and an important spiritual and community centre for Sikhs in Hong Kong.",
+    story: "The Sikh presence in Hong Kong grew through soldiers, police and migrants from Punjab. The Khalsa Diwan temple became a religious and social anchor and a stop in the wider Pacific migration story.",
+    traditions: "The Gurdwara is remembered as part of the network of early Sikh institutions linking Punjab with Asia and North America's pioneer communities.",
+    didYouKnow: "Hong Kong's early Sikh temple influenced the story of Sikh migration across the Pacific.",
+    values: ["Diaspora","Pioneers","Community"], difficulty: "Hard", source: "https://www.khalsadiwan.com/"
+  },
+  {
+    id: 38, lat: 1.3177, lng: 103.8565, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Central%20Sikh%20Temple%20Singapore.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Sikhism_in_Singapore", name: "Central Sikh Gurdwara", punjabi: "ਸੈਂਟਰਲ ਸਿੱਖ ਗੁਰਦੁਆਰਾ", city: "Singapore", region: "Kallang", country: "Singapore",
+    wikiTitle: "Central_Sikh_Temple", historicalPeriod: "Early Sikh Singapore", established: "Community institution traces to Queen Street in 1912; present Towner Road building opened in 1986",
+    gurus: [], significance: "A central institution of Singapore's Sikh community, rooted in the earliest civilian Sikh religious organisation in the city.",
+    story: "After early Sikh police established places of worship, a broader civilian congregation acquired a bungalow at Queen Street in 1912. The institution later became the Central Sikh Temple and moved to Towner Road.",
+    traditions: "The Wadda Gurdwara tradition brought Sikhs from different backgrounds together around worship, langar and community life.",
+    didYouKnow: "The present building opened in 1986 after several moves during Singapore's urban redevelopment.",
+    values: ["Community","Diaspora","Unity"], difficulty: "Hard", source: "https://www.roots.gov.sg/places/places-landing/Places/surveyed-sites/Central-Sikh-Gurdwara"
+  },
+  {
+    id: 39, lat: 1.2767, lng: 103.8293, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Gurdwara%20Sahib%20Silat%20Road.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Sikhism_in_Singapore", name: "Gurdwara Sahib Silat Road", punjabi: "ਗੁਰਦੁਆਰਾ ਸਾਹਿਬ ਸਿਲਾਟ ਰੋਡ", city: "Singapore", region: "Bukit Merah", country: "Singapore",
+    wikiTitle: "", historicalPeriod: "Sikh police and migration history", established: "Land acquired 1922; building completed 1924",
+    gurus: [], significance: "An important surviving link to Singapore's early Sikh police community and migration history.",
+    story: "After earlier police Gurdwaras were demolished, Sikh police members secured land at Silat Road and raised funds for a larger permanent Gurdwara.",
+    traditions: "It served worshippers as well as Sikhs newly arriving or travelling through Singapore.",
+    didYouKnow: "The 1924 building was designed with traditional Sikh architectural features including domes and arches.",
+    values: ["Pioneers","Service","Hospitality"], difficulty: "Hard", source: "https://sikhs.org.sg/about-srst/"
+  },
+  {
+    id: 40, lat: 1.3066, lng: 103.8497, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Sri%20Guru%20Singh%20Sabha%20Singapore.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Sikhism_in_Singapore", name: "Sri Guru Singh Sabha Singapore", punjabi: "ਸ੍ਰੀ ਗੁਰੂ ਸਿੰਘ ਸਭਾ ਸਿੰਗਾਪੁਰ", city: "Singapore", region: "Rochor", country: "Singapore",
+    wikiTitle: "", historicalPeriod: "Early 20th-century Sikh Singapore", established: "Established in 1918; Wilkie Road premises acquired in 1932",
+    gurus: [], significance: "One of Singapore's oldest Sikh institutions, preserving Sikh religious education and community traditions across generations.",
+    story: "Founded by early Sikh immigrants in 1918, the Sabha eventually established itself at Wilkie Road and expanded its facilities as the Sangat grew.",
+    traditions: "The institution has supported Gurmat education, youth programmes, kirtan and community gatherings.",
+    didYouKnow: "The present complex grew from property acquired at Wilkie Road in the 1930s and later redevelopment.",
+    values: ["Education","Diaspora","Community"], difficulty: "Hard", source: "https://singhsabha.sg/about-sgss/brief-history"
+  },
+  {
+    id: 41, lat: 3.1416, lng: 101.6915, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Gurdwara%20Sahib%20Tatt%20Khalsa%20Kuala%20Lumpur.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Sikhism_in_Malaysia", name: "Gurdwara Sahib Tatt Khalsa", punjabi: "ਗੁਰਦੁਆਰਾ ਸਾਹਿਬ ਤੱਤ ਖ਼ਾਲਸਾ", city: "Kuala Lumpur", region: "Kuala Lumpur", country: "Malaysia",
+    wikiTitle: "", historicalPeriod: "Sikh migration to Malaya", established: "Historic Kuala Lumpur Sikh institution",
+    gurus: [], significance: "A major centre of Sikh worship and community life in Malaysia's capital.",
+    story: "Sikh migration to Malaya included police, soldiers, railway workers, professionals and traders. Kuala Lumpur's Gurdwaras became enduring centres for worship, langar and mutual support.",
+    traditions: "Its importance is rooted in the Sangat that built and sustained Sikh religious and cultural life in Malaysia.",
+    didYouKnow: "Malaysia has one of Southeast Asia's long-established Sikh communities.",
+    values: ["Diaspora","Community","Seva"], difficulty: "Hard", source: "https://en.wikipedia.org/wiki/Sikhism_in_Malaysia"
+  },
+  {
+    id: 42, lat: 5.4145, lng: 100.3292, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Wadda%20Gurdwara%20Sahib%20Penang.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Sikhism_in_Malaysia", name: "Wadda Gurdwara Sahib Penang", punjabi: "ਵੱਡਾ ਗੁਰਦੁਆਰਾ ਸਾਹਿਬ ਪੇਨਾਂਗ", city: "George Town", region: "Penang", country: "Malaysia",
+    wikiTitle: "", historicalPeriod: "Early overseas Sikh diaspora", established: "Sikh institution in Penang dates to the late 19th century",
+    gurus: [], significance: "Part of one of the earliest Sikh communities outside South Asia and an important landmark in Malaysian Sikh history.",
+    story: "Penang's position as a colonial port drew Sikh police, workers and migrants. A permanent Sangat developed around one of the earliest overseas Gurdwaras.",
+    traditions: "The Gurdwara reflects the role of ports and colonial migration routes in the spread of Sikh communities across Southeast Asia.",
+    didYouKnow: "Historical surveys place a Sikh Gurdwara in Penang among the earliest overseas Gurdwaras.",
+    values: ["Pioneers","Diaspora","Heritage"], difficulty: "Hard", source: "https://en.wikipedia.org/wiki/Sikhism_in_Malaysia"
+  },
+  {
+    id: 43, lat: -33.8390, lng: 151.1260, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Gurdwara%20Sahib%20Glenwood.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Sikhism_in_Australia", name: "Gurdwara Sahib Glenwood", punjabi: "ਗੁਰਦੁਆਰਾ ਸਾਹਿਬ ਗਲੇਨਵੁੱਡ", city: "Sydney", region: "New South Wales", country: "Australia",
+    wikiTitle: "", historicalPeriod: "Modern Sikh Australia", established: "Contemporary Sydney Sikh institution",
+    gurus: [], significance: "Represents the growth of Sikh religious and community institutions in metropolitan Australia.",
+    story: "As Australia's Sikh population expanded, large urban Gurdwaras became centres for worship, langar, Punjabi education and community service.",
+    traditions: "Its significance is primarily contemporary and local, supporting a multigenerational Sikh Sangat in Sydney.",
+    didYouKnow: "Australia's Sikh population has roots extending back to the 19th-century era of hawkers, labourers and migrants.",
+    values: ["Diaspora","Education","Community"], difficulty: "Hard", source: "https://en.wikipedia.org/wiki/Sikhism_in_Australia"
+  },
+  {
+    id: 44, lat: -30.1127, lng: 153.1985, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Guru%20Nanak%20Sikh%20Temple%20Woolgoolga.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Woolgoolga,_New_South_Wales", name: "Guru Nanak Sikh Temple Woolgoolga", punjabi: "ਗੁਰੂ ਨਾਨਕ ਸਿੱਖ ਟੈਂਪਲ ਵੂਲਗੂਲਗਾ", city: "Woolgoolga", region: "New South Wales", country: "Australia",
+    wikiTitle: "", historicalPeriod: "Post-war Sikh settlement in Australia", established: "Sikh community institution developed in the 1960s",
+    gurus: [], significance: "Woolgoolga is a landmark centre of Sikh Australian history and one of the country's best-known regional Sikh communities.",
+    story: "Punjabi Sikh families became closely associated with banana farming around Woolgoolga. Their community established Gurdwaras that became visible symbols of Sikh settlement in regional Australia.",
+    traditions: "The story combines agricultural migration, family settlement, Sangat and the building of a distinctive Sikh Australian community.",
+    didYouKnow: "Woolgoolga is widely known for its Sikh heritage and prominent Gurdwara architecture.",
+    values: ["Pioneers","Agriculture","Community"], difficulty: "Hard", source: "https://en.wikipedia.org/wiki/Woolgoolga,_New_South_Wales"
+  },
+  {
+    id: 45, lat: -1.2835, lng: 36.8219, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Sikh%20Temple%20Nairobi.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Sikhism_in_Kenya", name: "Siri Guru Singh Sabha Nairobi", punjabi: "ਸ੍ਰੀ ਗੁਰੂ ਸਿੰਘ ਸਭਾ ਨੈਰੋਬੀ", city: "Nairobi", region: "Nairobi County", country: "Kenya",
+    wikiTitle: "", historicalPeriod: "East African Sikh diaspora", established: "Historic Sikh institution serving Nairobi's community",
+    gurus: [], significance: "Represents the long history of Sikh settlement, service and community building in East Africa.",
+    story: "Sikhs travelled to East Africa as soldiers, railway workers, artisans, traders and professionals. Nairobi developed into a major centre of Sikh community life.",
+    traditions: "Gurdwaras in Kenya became places of worship, hospitality and support for travellers and new migrants as well as established families.",
+    didYouKnow: "East Africa was home to some of the earliest Sikh communities outside South Asia.",
+    values: ["Diaspora","Pioneers","Service"], difficulty: "Hard", source: "https://en.wikipedia.org/wiki/Sikhism_in_Kenya"
+  },
+  {
+    id: 46, lat: -4.0435, lng: 39.6682, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Sikh%20Temple%20Mombasa.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Sikhism_in_Kenya", name: "Singh Sabha Gurdwara Mombasa", punjabi: "ਸਿੰਘ ਸਭਾ ਗੁਰਦੁਆਰਾ ਮੋਮਬਾਸਾ", city: "Mombasa", region: "Mombasa County", country: "Kenya",
+    wikiTitle: "", historicalPeriod: "Early overseas Sikh diaspora", established: "Sikh institution in Mombasa dates to the late 19th century",
+    gurus: [], significance: "Mombasa is associated with one of the earliest Sikh Gurdwaras in East Africa and the history of Sikh migration through the Indian Ocean.",
+    story: "The port of Mombasa was a gateway for Sikh migrants involved in colonial-era transport, military and railway networks in East Africa.",
+    traditions: "The local Sangat's story illustrates how Sikh institutions followed migration routes and provided spiritual and practical support far from Punjab.",
+    didYouKnow: "Historical surveys date a Singh Sabha Gurdwara in Mombasa to the 1890s.",
+    values: ["Pioneers","Migration","Heritage"], difficulty: "Hard", source: "https://en.wikipedia.org/wiki/Sikhism_in_Kenya"
+  },
+  {
+    id: 47, lat: -36.8598, lng: 174.7658, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Gurdwara%20Sri%20Kalgidhar%20Sahib%20Auckland.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Sikhism_in_New_Zealand", name: "Gurdwara Sri Kalgidhar Sahib", punjabi: "ਗੁਰਦੁਆਰਾ ਸ੍ਰੀ ਕਲਗੀਧਰ ਸਾਹਿਬ", city: "Auckland", region: "Auckland", country: "New Zealand",
+    wikiTitle: "", historicalPeriod: "Modern Sikh New Zealand", established: "Contemporary Auckland Sikh institution",
+    gurus: [], significance: "Represents the rapid growth of Sikh community life in New Zealand's largest city.",
+    story: "New Zealand's Sikh community expanded substantially through modern migration, with Auckland Gurdwaras becoming centres of worship, education, langar and public service.",
+    traditions: "Its significance comes from living Sangat and the transmission of Sikh identity to new generations in Aotearoa New Zealand.",
+    didYouKnow: "Sikh settlement in New Zealand reaches back well before the recent growth of the community.",
+    values: ["Diaspora","Community","Education"], difficulty: "Hard", source: "https://en.wikipedia.org/wiki/Sikhism_in_New_Zealand"
+  },
+  {
+    id: 48, lat: 25.2324, lng: 55.3198, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Guru%20Nanak%20Darbar%20Dubai.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Guru_Nanak_Darbar,_Dubai", name: "Guru Nanak Darbar Dubai", punjabi: "ਗੁਰੂ ਨਾਨਕ ਦਰਬਾਰ ਦੁਬਈ", city: "Dubai", region: "Dubai", country: "United Arab Emirates",
+    wikiTitle: "Guru_Nanak_Darbar_(Dubai)", historicalPeriod: "21st-century global Sikh diaspora", established: "Opened in 2012",
+    gurus: [], significance: "A major modern Sikh institution in the Gulf and a prominent example of contemporary global Sikh community development.",
+    story: "Built to serve the growing Sikh population of the United Arab Emirates, Guru Nanak Darbar provides a dedicated place for worship, langar and community gatherings in Dubai.",
+    traditions: "The Gurdwara represents the ability of Sikh Sangat to create community institutions in new migration destinations.",
+    didYouKnow: "Its opening marked an important milestone for Sikh religious life in the Gulf region.",
+    values: ["Global Community","Seva","Belonging"], difficulty: "Medium", source: "https://www.gurunanakdarbar.net/"
+  },
+  {
+    id: 49, lat: 30.7333, lng: 76.7794, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Gurdwara%20Nada%20Sahib.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Gurdwaras_in_Haryana", name: "Gurdwara Nada Sahib", punjabi: "ਗੁਰਦੁਆਰਾ ਨਾਡਾ ਸਾਹਿਬ", city: "Panchkula", region: "Haryana", country: "India",
+    wikiTitle: "Nada_Sahib", historicalPeriod: "Late 17th–early 18th century Sikh history", established: "Associated with Guru Gobind Singh's journey after the Battle of Bhangani",
+    gurus: ["Guru Gobind Singh"], significance: "An important regional pilgrimage site associated with Guru Gobind Singh and his travels through the Shivalik foothills.",
+    story: "Sikh tradition remembers Guru Gobind Singh stopping at this location while travelling through the region. The site later developed into a major Gurdwara near Chandigarh.",
+    traditions: "Local tradition associates the shrine with hospitality offered to Guru Gobind Singh and his companions.",
+    didYouKnow: "Its location near Chandigarh makes it a natural addition to a northern India pilgrimage itinerary.",
+    values: ["Hospitality","Heritage","Devotion"], difficulty: "Medium", source: "https://en.wikipedia.org/wiki/Nada_Sahib"
+  },
+  {
+    id: 50, lat: 30.3462, lng: 76.3858, imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Gurdwara%20Dukh%20Nivaran%20Sahib%20Patiala.jpg?width=1000", imagePage: "https://commons.wikimedia.org/wiki/Category:Gurdwaras_in_Patiala", name: "Gurdwara Dukh Nivaran Sahib Patiala", punjabi: "ਗੁਰਦੁਆਰਾ ਦੁੱਖ ਨਿਵਾਰਨ ਸਾਹਿਬ ਪਟਿਆਲਾ", city: "Patiala", region: "Punjab", country: "India",
+    wikiTitle: "", historicalPeriod: "Associated with Guru Tegh Bahadur", established: "Historic site associated by tradition with Guru Tegh Bahadur",
+    gurus: ["Guru Tegh Bahadur"], significance: "A major regional Sikh pilgrimage site in Patiala associated with Guru Tegh Bahadur.",
+    story: "Local Sikh tradition holds that Guru Tegh Bahadur stopped at this place during his travels. The site became a well-known place of devotion and pilgrimage.",
+    traditions: "The name Dukh Nivaran, meaning relief from suffering, reflects traditions of devotees seeking spiritual comfort at the site.",
+    didYouKnow: "The Gurdwara is one of Patiala's best-known Sikh landmarks and receives large numbers of pilgrims.",
+    values: ["Compassion","Devotion","Hope"], difficulty: "Medium", source: "https://en.wikipedia.org/wiki/Gurdwara_Dukh_Nivaran_Sahib"
+  }
+
 ];

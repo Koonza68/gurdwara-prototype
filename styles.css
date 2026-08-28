@@ -329,3 +329,7 @@ p { line-height:1.55; }
 .explore-map-card{padding:0;overflow:hidden}.explore-map{height:560px}.popup-profile{margin-top:6px;border:0;border-radius:7px;padding:5px 8px;background:#2e6658;color:#fff;cursor:pointer;font-weight:700}
 @media(max-width:850px){.explore-grid{grid-template-columns:1fr 1fr}.explore-filters{grid-template-columns:1fr 1fr}.view-toggle{grid-column:span 2}}
 @media(max-width:560px){.explore-grid{grid-template-columns:1fr}.explore-filters{grid-template-columns:1fr}.view-toggle{grid-column:auto}.explore-photo{height:190px}.explore-map{height:430px}}
+
+.photo-choice.runtime-photo-fail{opacity:.35;filter:grayscale(1);cursor:not-allowed}
+.photo-choice.runtime-photo-fail::after{content:"Photo unavailable";position:absolute;inset:auto 8px 8px 8px;background:rgba(255,255,255,.9);padding:5px;border-radius:8px;font-size:.7rem;color:var(--muted);font-weight:700}
+.primary:disabled{opacity:.6;cursor:wait}

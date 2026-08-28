@@ -1,6 +1,6 @@
 
-const APP_BUILD = "2026-08-27-2030";
-const APP_VERSION = "1.3.1";
+const APP_BUILD = "2026-08-27-photos";
+const APP_VERSION = "1.3.2";
 
 // Expose current build for easy troubleshooting.
 window.GURDWARA_BUILD = { version: APP_VERSION, build: APP_BUILD };
@@ -17,6 +17,37 @@ let state = {
 const discovered = new Set(JSON.parse(localStorage.getItem('gurdwara_discovered') || '[]'));
 const visited = new Set(JSON.parse(localStorage.getItem('gurdwara_visited') || '[]'));
 const wantToVisit = new Set(JSON.parse(localStorage.getItem('gurdwara_want_to_visit') || '[]'));
+
+let playablePhotoPool = [];
+
+function validatePhoto(item, timeoutMs=7000){
+  return new Promise(resolve=>{
+    if(!item?.imageUrl){ resolve(false); return; }
+    const img=new Image();
+    let done=false;
+    const finish=ok=>{ if(done)return; done=true; clearTimeout(timer); resolve(ok); };
+    const timer=setTimeout(()=>finish(false),timeoutMs);
+    img.onload=()=>finish(img.naturalWidth>120 && img.naturalHeight>90);
+    img.onerror=()=>finish(false);
+    img.referrerPolicy='no-referrer';
+    img.src=item.imageUrl + (item.imageUrl.includes('?') ? '&' : '?') + 'check=' + encodeURIComponent(APP_BUILD);
+  });
+}
+
+async function preparePlayablePhotoPool(){
+  const cacheKey=`gurdwara_valid_photos_${APP_BUILD}`;
+  const cached=JSON.parse(localStorage.getItem(cacheKey)||'null');
+  if(Array.isArray(cached) && cached.length>=4){
+    playablePhotoPool=data.filter(x=>cached.includes(x.id));
+    if(playablePhotoPool.length>=4) return playablePhotoPool;
+  }
+
+  const results=await Promise.all(data.map(async item=>({item,ok:await validatePhoto(item)})));
+  playablePhotoPool=results.filter(r=>r.ok).map(r=>r.item);
+  localStorage.setItem(cacheKey, JSON.stringify(playablePhotoPool.map(x=>x.id)));
+  return playablePhotoPool;
+}
+
 
 const GURU_INFO = {
   "Guru Nanak": {order:1, years:"1469–1539", summary:"Founder of the Sikh faith. His teachings emphasized devotion to one God, equality, honest living, sharing and service."},
@@ -52,7 +83,7 @@ const PLACE_INFO = {
 
 function shuffle(arr){ return [...arr].sort(()=>Math.random()-.5); }
 function escapeHtml(s=''){ return String(s).replace(/[&<>'"]/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;' }[c])); }
-function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V1.3.1</div></div>${content}`; }
+function layout(content){ app.innerHTML=`<div class="brand"><div class="brand-title">ੴ Gurdwara Discovery</div><div class="badge">Prototype V1.3.2</div></div>${content}`; }
 
 
 function saveJourneyState(){
@@ -272,7 +303,7 @@ function renderHome(){
     <button class="primary" id="start">Start Photo Challenge</button>
     <button class="journey-home-btn explore-home-btn" id="exploreGurdwaras">🏛️ Explore Gurdwaras <span>Browse all ${data.length}</span></button>
     <button class="journey-home-btn" id="myJourney">🧭 My Journey <span>${wantToVisit.size} Want to Visit</span></button>
-    <p class="small-note">Prototype V1.3.1 · Quiz, heritage profiles and personal pilgrimage planning.</p>
+    <p class="small-note">Prototype V1.3.2 · Quiz, heritage profiles and personal pilgrimage planning.</p>
   </section>`);
   document.getElementById('start').onclick=startGame;
   document.getElementById('exploreGurdwaras').onclick=()=>renderExplore();
@@ -909,11 +940,27 @@ function renderExplore(){
   if(exploreState.view==='map')initExploreMap(items);
 }
 
-function startGame(){
-  const eligible=data.filter(x=>x.imageUrl);
-  state.rounds=shuffle(eligible).slice(0,TOTAL_ROUNDS).map(correct=>{
+async function startGame(){
+  const startBtn=document.getElementById('start');
+  if(startBtn){ startBtn.disabled=true; startBtn.textContent='Checking Gurdwara photos…'; }
+
+  const eligible=await preparePlayablePhotoPool();
+
+  if(eligible.length<4){
+    layout(`<section class="card hero">
+      <h2>Photo check needed</h2>
+      <p class="lead">Too few Gurdwara photos loaded successfully to start a fair four-photo challenge.</p>
+      <p class="small-note">${eligible.length} usable photos were available. Please try again with an internet connection.</p>
+      <button class="primary" id="retryPhotos">Retry Photo Check</button>
+    </section>`);
+    document.getElementById('retryPhotos').onclick=()=>{ localStorage.removeItem(`gurdwara_valid_photos_${APP_BUILD}`); renderHome(); };
+    return;
+  }
+
+  const roundCount=Math.min(TOTAL_ROUNDS, eligible.length);
+  state.rounds=shuffle(eligible).slice(0,roundCount).map(correct=>{
     const others=shuffle(eligible.filter(x=>x.id!==correct.id)).slice(0,3);
-    return {correct, options:shuffle([correct,...others])};
+    return {correct,options:shuffle([correct,...others])};
   });
   state.roundIndex=0; state.score=0; state.streak=0; state.bestStreak=0; state.correctCount=0; state.answeredCount=0;
   beginRound();
@@ -948,8 +995,8 @@ function renderQuestion(){
         const disabled=state.disabledIds.has(o.id);
         return `<button class="photo-choice ${disabled?'eliminated':''}" data-id="${o.id}" ${disabled?'disabled':''} aria-label="Gurdwara image option ${i+1}">
           <img src="${o.imageUrl}" alt="Gurdwara image option ${i+1}" loading="eager"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
-          <div class="grid-fallback" style="display:none">Photo could not load</div>
+            onerror="this.closest('.photo-choice').disabled=true;this.closest('.photo-choice').classList.add('runtime-photo-fail');this.style.display='none';this.nextElementSibling.style.display='grid'">
+          <div class="grid-fallback" style="display:none">Photo skipped — reload round</div>
           <span class="photo-number">${i+1}</span>
           ${disabled?'<span class="wrong-overlay">Not this one</span>':''}
         </button>`;

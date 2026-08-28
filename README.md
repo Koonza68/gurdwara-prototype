@@ -1,4 +1,4 @@
-# Gurdwara Discovery — Prototype V1.3.1
+# Gurdwara Discovery — Prototype V1.3.2
 
 ## Pilgrimage Planner
 
@@ -131,3 +131,17 @@ This release adds stronger cache-busting so new deployments are easier to verify
 - The browser should now need only a normal refresh after GitHub Pages finishes deploying.
 
 Current build: `2026-08-27-2030`.
+
+
+## V1.3.2 — Photo Reliability
+
+The game now validates Gurdwara photos before creating a quiz.
+
+- All candidate photos are preloaded and checked before the first round.
+- Broken, missing, tiny or unreachable photos are excluded from the playable pool automatically.
+- Quiz rounds are created only from Gurdwaras with working images.
+- The successful photo list is cached per build so the check normally happens only once per release.
+- Runtime image failures are disabled instead of remaining as a selectable blank answer.
+- This protects the game even while the 50-entry photo catalogue is still being visually curated.
+
+This is intentionally a reliability layer in addition to the ongoing manual photo-quality review.
